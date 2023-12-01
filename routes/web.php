@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\Post\LikeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,22 +35,18 @@ Route::post('/logout','App\Http\Controllers\Auth\LogOutController')->middleware(
 
 
 Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
-    Route::post('/posts/{post}/like',[\App\Http\Controllers\Post\LikeController::class,'like'])->middleware('auth')->name('posts.like');
-//    Route::get('/posts/{post}/like',[\App\Http\Controllers\Post\LikeController::class,'like'])->middleware('auth')->name('posts.like');
-    Route::post('/posts/{post}/dislike',[\App\Http\Controllers\Post\LikeController::class,'dislike'])->middleware('auth')->name('posts.dislike');
+    Route::post('/posts/{post}/like',[LikeController::class,'like'])->middleware('auth')->name('posts.like');
+    Route::post('/posts/{post}/dislike',[LikeController::class,'dislike'])->middleware('auth')->name('posts.dislike');
     Route::get('/posts', 'IndexController')->name('posts.index');
     Route::get('/posts/create', 'CreateController')->name('posts.create');
     Route::post('/posts', 'StoreController')->middleware('auth')->name('posts.store');
-    Route::get('/posts/{post}', 'ShowController')->name('posts.show');
+    Route::get('/posts/{post}', 'ShowController')->middleware('private.post')->name('posts.show');
     Route::get('/posts/{post}/edit','EditController')->middleware(['auth','post.owner'])->name('posts.edit');
     Route::patch('/posts/{post}/toggle','ToggleController')->middleware(['auth','post.owner'])->name('posts.toggle');
     Route::patch('/posts/{post}', 'UpdateController')->middleware(['auth','post.owner'])->name('posts.update');
     Route::delete('/posts/{post}','DestroyController')->middleware(['auth','post.owner'])->name('posts.destroy');
 });
 
-//Route::group(['namespace' => 'App\Http\Controllers\User'],function (){
-//
-//});
 
 Route::group(['namespace' => 'App\Http\Controllers\Profile', 'middleware' => ['auth']],function () {
     Route::get('/profile/posts', 'PostsController')->name('posts.profile');

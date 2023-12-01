@@ -13,17 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = false;
-//    protected $fillable = [
-//        'name',
-//        'email',
-//        'password',
-//    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,6 +33,7 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
     public function posts(){
         return $this->hasMany(Post::class);
     }

@@ -10,8 +10,7 @@ class Like extends Model
     use HasFactory;
 
     protected $table = 'likes';
-    protected $guarded = 'false';
-    protected $fillable = ['user_id', 'post_id', 'is_like'];
+    protected $guarded = False;
 
     public function post(){
         return $this->belongsTo(Post::class);

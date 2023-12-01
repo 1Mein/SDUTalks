@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
-
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {

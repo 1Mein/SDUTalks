@@ -11,7 +11,7 @@ class ShowController extends Controller
 {
     public function __invoke(Post $post)
     {
-        if(!$post->is_published) abort(403,'Private post');
+//        if(!$post->is_published) abort(403,'Private post');
         return view('post.show', compact(['post']));
     }
 }
