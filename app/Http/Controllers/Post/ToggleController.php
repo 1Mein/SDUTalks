@@ -14,8 +14,8 @@ class ToggleController extends Controller
         $post->is_published = !$post->is_published;
         $post->save();
 
-        $currentPage = Request::query('page',1);
-//        dd($currentPage);
-        return redirect()->route('posts.profile')->with('page', $currentPage);
+//        $currentPage = Request::query('page',1);
+        return response()->json(['success' => true,'is_published' => $post->is_published]);
+//        return redirect()->route('posts.profile')->with('page', $currentPage);
     }
 }

@@ -30,9 +30,6 @@ class RegistrationController extends Controller
             'password' => $request->password
         ]);
 
-//        dd($post);
-//        dd($request);
-
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

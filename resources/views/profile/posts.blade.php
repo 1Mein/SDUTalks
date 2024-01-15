@@ -11,7 +11,7 @@
         </div>
 
         @foreach($posts as $post)
-            @include('includes.postCardManage')
+            @include('includes.postCard')
         @endforeach
 
         <div class="d-flex justify-content-center">

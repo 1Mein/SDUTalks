@@ -34,10 +34,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    //posts
     public function posts(){
         return $this->hasMany(Post::class);
     }
 
+    //likes
     public function likes()
     {
         return $this->hasMany(Like::class)->where('is_like',true);
@@ -50,18 +52,22 @@ class User extends Authenticatable
     public function liked(Post $post) : bool
     {
         return (bool)$this
-            ->hasMany(Like::class)
-            ->where('is_like',true)
+            ->likes()
             ->where('post_id',$post->id)
-            ->count();
+            ->exists();
     }
 
     public function disliked(Post $post) : bool
     {
         return (bool)$this
-            ->hasMany(Like::class)
-            ->where('is_like',false)
+            ->dislikes()
             ->where('post_id',$post->id)
-            ->count();
+            ->exists();
+    }
+
+    //comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->get();;
     }
 }

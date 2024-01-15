@@ -6,63 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
 
-class LikeController extends Controller
+class LikeController extends BaseController
 {
     public function like(Post $post)
     {
         $user = auth()->user();
-        $userid = $user->id;
-        $postid = $post->id;
-        $action = '';
+        $userId = $user->id;
+        $postId = $post->id;
+
+        $action = $this->service->setLike($post,$user,$postId,$userId);
 
 
-        if ($post->liked($user)) {
-            $rel = Like::where('post_id', $postid)->where('user_id', $userid);
-            $rel->delete();
-            $action = 'unlike';
-        } else if ($post->disliked($user)) {
-            //undislike
-            $rel = Like::where('post_id', $postid)->where('user_id', $userid);
-            $rel->update(['is_like' => true]);
-            $action = 'undislike like';
-        } else {
-            $action = $action . 'like';
-            $like = new Like([
-                'user_id' => $userid,
-                'post_id' => $postid,
-                'is_like' => true,
-            ]);
-            $like->save();
-        }
-        return response()->json(['action' => $action, 'likes' => $post->likes->count(), 'dislikes' => $post->dislikes->count(), 'id' => $postid]);
+        return response()->json(['action' => $action, 'likes' => $post->likes()->count(), 'dislikes' => $post->dislikes()->count(), 'id' => $postId]);
     }
 
 
     public function dislike(Post $post)
     {
         $user = auth()->user();
-        $userid = $user->id;
-        $postid = $post->id;
+        $userId = $user->id;
+        $postId = $post->id;
 
+        $action = $this->service->setDislike($post,$user,$postId,$userId);
 
-        if ($post->disliked($user)) {
-            $rel = Like::where('post_id', $postid)->where('user_id', $userid);
-            $rel->delete();
-            $action = 'undislike';
-        } else if ($post->liked($user)) {
-            //unlike
-            $rel = Like::where('post_id', $postid)->where('user_id', $userid);
-            $rel->update(['is_like' => false]);
-            $action = 'unlike dislike';
-        } else {
-            $dislike = new Like([
-                'user_id' => $userid,
-                'post_id' => $postid,
-                'is_like' => false,
-            ]);
-            $dislike->save();
-            $action = 'dislike';
-        }
-        return response()->json(['action' => $action, 'likes' => $post->likes->count(), 'dislikes' => $post->dislikes->count(), 'id' => $post->id]);
+        return response()->json(['action' => $action, 'likes' => $post->likes()->count(), 'dislikes' => $post->dislikes()->count(), 'id' => $postId]);
     }
 }

@@ -85,35 +85,22 @@
                     },
                     success: function (response) {
                         // Обновляем отображение лайков на странице
-                        var dif = response.likes - response.dislikes
-                        var count = document.querySelector('.likes-count' + response.id)
-                        if (dif > 0) {
-                            count.classList.add('text-success-emphasis')
-                            count.classList.remove('text-danger-emphasis')
-                        } else if (dif < 0) {
-                            count.classList.add('text-danger-emphasis')
-                            count.classList.remove('text-success-emphasis')
-                        } else {
-                            count.classList.remove('text-success-emphasis')
-                            count.classList.remove('text-danger-emphasis')
-                        }
-                        $('.likes-count' + response.id).text(dif);
+                        var dif = response.likes - response.dislikes;
+                        var count = document.querySelector('.likes-count' + response.id);
+                        var likeButton = document.querySelector('#forlike' + response.id);
+                        var dislikeButton = document.querySelector('#fordislike' + response.id);
 
-                        var likeButton = document.querySelector('#forlike' + response.id)
-                        if (response.action === 'like') {
-                            likeButton.classList.add('btn-success')
-                            likeButton.classList.remove('btn-outline-secondary')
-                        }
-                        else if(response.action === 'unlike'){
-                            likeButton.classList.remove('btn-success')
-                            likeButton.classList.add('btn-outline-secondary')
-                        }
-                        else{
-                            var dislikeButton = document.querySelector('#fordislike' + response.id)
-                            likeButton.classList.add('btn-success')
-                            likeButton.classList.remove('btn-outline-secondary')
-                            dislikeButton.classList.remove('btn-danger')
-                            dislikeButton.classList.add('btn-outline-secondary')
+
+                        count.classList.toggle('text-success-emphasis', dif > 0);
+                        count.classList.toggle('text-danger-emphasis', dif < 0);
+                        count.innerHTML = dif;
+
+                        likeButton.classList.toggle('btn-success');
+                        likeButton.classList.toggle('btn-outline-secondary');
+
+                        if (response.action === 'undislike like') {
+                            dislikeButton.classList.toggle('btn-danger');
+                            dislikeButton.classList.toggle('btn-outline-secondary');
                         }
                     }
                 });
@@ -130,39 +117,51 @@
                     },
                     success: function (response) {
                         // Обновляем отображение дизлайков на странице
-                        var dif = response.likes - response.dislikes
-                        var count = document.querySelector('.likes-count' + response.id)
-                        if (dif > 0) {
-                            count.classList.add('text-success-emphasis')
-                            count.classList.remove('text-danger-emphasis')
-                        } else if (dif < 0) {
-                            count.classList.add('text-danger-emphasis')
-                            count.classList.remove('text-success-emphasis')
-                        } else {
-                            count.classList.remove('text-success-emphasis')
-                            count.classList.remove('text-danger-emphasis')
-                        }
-                        $('.likes-count' + response.id).text(dif);
+                        var dif = response.likes - response.dislikes;
+                        var count = document.querySelector('.likes-count' + response.id);
+                        var likeButton = document.querySelector('#forlike' + response.id);
+                        var dislikeButton = document.querySelector('#fordislike' + response.id);
 
-                        var dislikeButton = document.querySelector('#fordislike' + response.id)
-                        if (response.action === 'dislike') {
-                            dislikeButton.classList.add('btn-danger')
-                            dislikeButton.classList.remove('btn-outline-secondary')
-                        }
-                        else if(response.action === 'undislike'){
-                            dislikeButton.classList.remove('btn-danger')
-                            dislikeButton.classList.add('btn-outline-secondary')
-                        }
-                        else{
-                            var likeButton = document.querySelector('#forlike' + response.id)
-                            dislikeButton.classList.add('btn-danger')
-                            dislikeButton.classList.remove('btn-outline-secondary')
-                            likeButton.classList.remove('btn-success')
-                            likeButton.classList.add('btn-outline-secondary')
+
+                        count.classList.toggle('text-success-emphasis', dif > 0);
+                        count.classList.toggle('text-danger-emphasis', dif < 0);
+                        count.innerHTML = dif;
+
+                        dislikeButton.classList.toggle('btn-danger');
+                        dislikeButton.classList.toggle('btn-outline-secondary');
+
+                        if (response.action === 'unlike dislike') {
+                            likeButton.classList.toggle('btn-success');
+                            likeButton.classList.toggle('btn-outline-secondary');
                         }
                     }
                 });
             });
+        });
+        $('.toggle-post').on('click', function () {
+            var postId = $(this).data('post-id');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: 'PATCH',
+                url: '/posts/' + postId + '/toggle',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(response.success){
+                        var togglePost = document.querySelector('.tgp-' + postId);
+                        console.log(postId);
+                        togglePost.innerHTML = '';
+
+                        if (response.is_published) {
+                            togglePost.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#5cb85c" class="bi bi-toggle-on" viewBox="0 0 16 16"><path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/></svg>';
+                        }
+                        else{
+                            togglePost.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d9534f" class="bi bi-toggle-off" viewBox="0 0 16 16"><path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/></svg>';
+                        }
+                    }
+                }
+            })
         });
     </script>
     </body>
