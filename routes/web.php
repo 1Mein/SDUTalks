@@ -34,6 +34,23 @@ Route::controller(LoginController::class)->middleware('guest')->group(function (
 Route::post('/logout','App\Http\Controllers\Auth\LogOutController')->middleware('auth')->name('logout');
 
 
+Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
+    Route::post('/posts/{post}/like',[LikeController::class,'like'])->middleware('auth')->name('posts.like');
+    Route::post('/posts/{post}/dislike',[LikeController::class,'dislike'])->middleware('auth')->name('posts.dislike');
+    Route::get('/posts', 'IndexController')->name('posts.index');
+    Route::get('/posts/create', 'CreateController')->name('posts.create');
+    Route::post('/posts', 'StoreController')->middleware('auth')->name('posts.store');
+    Route::get('/posts/{post}', 'ShowController')->name('posts.show');
+    Route::get('/posts/{post}/edit','EditController')->middleware(['auth','post.owner'])->name('posts.edit');
+    Route::patch('/posts/{post}/toggle','ToggleController')->middleware(['auth','post.owner'])->name('posts.toggle');
+    Route::patch('/posts/{post}', 'UpdateController')->middleware(['auth','post.owner'])->name('posts.update');
+    Route::delete('/posts/{post}','DestroyController')->middleware(['auth','post.owner'])->name('posts.destroy');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers\Comment'],function (){
+    Route::post('/comment/{post}','StoreController')->middleware('auth')->name('comment.store');
+    Route::get('/comment/{comment}','ShowController')->name('comment.show');
+});
 
 
 Route::group(['namespace' => 'App\Http\Controllers\Profile', 'middleware' => ['auth']],function () {
