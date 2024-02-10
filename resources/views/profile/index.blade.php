@@ -21,7 +21,7 @@
         <div class="col-5 card fs-3 p-5 pb-0">
             <p class="text-info fs-1 text-center"><b>Information</b></p>
             <div class="d-flex justify-content-between">
-                <p>Userame:</p>
+                <p>Username:</p>
                 <p class="text-break">{{auth()->user()->name}}</p>
             </div>
             <hr>
