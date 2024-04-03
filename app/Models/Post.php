@@ -51,4 +51,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class)->get();
     }
+
+    public function bestComment()
+    {
+        return $this->comments()->sortByDesc('created_at')->first();
+    }
 }

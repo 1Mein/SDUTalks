@@ -5,7 +5,8 @@
     <div class="card-header d-flex justify-content-between ps-2">
         <div>
             <img src="{{asset('storage/avatars/'.$post->user->avatar)}}" role="button" data-bs-toggle="modal"
-                 data-bs-target="{{'#post'.$post->id}}" alt="" width="40" height="40" class="rounded-circle me-2">
+                 data-bs-target="{{'#post'.$post->id}}" alt="" width="40" height="40"
+                 class="rounded-circle shadow-sm me-2">
             <div class="modal fade" id="{{'post'.$post->id}}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -14,7 +15,7 @@
                 </div>
             </div>
 
-            <a class="m-0 text-white text-break my-auto me-2" href="{{route('show.profile',$post->user)}}"
+            <a id="avatarPost" class="m-0 text-white text-break my-auto me-2" href="{{route('show.profile',$post->user)}}"
                style="text-decoration: none">{{$post->user->name}}</a>
         </div>
         @auth()
@@ -64,15 +65,15 @@
             @endif
             {{--manage end--}}
         @endauth
-        <p class="m-0 my-auto">{{$post->created_at}}</p>
+        <p class="m-0 my-auto">{{$post->time}}</p>
     </div>
+    <a href="{{route('posts.show',$post->id)}}" class="text-white" style="text-decoration:none">
+        <div class="card-body text-white"> {{--text-center--}}
 
-    <div class="card-body text-white"> {{--text-center--}}
-        <a href="{{route('posts.show',$post->id)}}" class="text-white"
-           style="text-decoration:none"><b class="h5 text-break">{{$post->title}}</b>
-        <p class="m-0">{{$post->content}}</p></a>
-    </div>
-
+            <b class="h5 text-break">{{$post->title}}</b>
+            <p class="m-0">{{$post->content}}</p>
+        </div>
+    </a>
     <div class="card-footer d-flex justify-content-between">
         <div class="d-flex justify-content-start align-items-center">
             @auth
@@ -87,8 +88,8 @@
                     <span class="visually-hidden">Button</span>
                 </button>
             @endauth
-
-            <p class="border border-dark-subtle ms-1 me-1 border-2 rounded p-0 m-0 px-1 likes-count{{$post->id}} @if($post->likes()->count() - $post->dislikes()->count()>0) text-success-emphasis @elseif($post->likes()->count() - $post->dislikes()->count()<0) text-danger-emphasis
+            <p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Likes: {{$post->likes()->count()}} | Dislikes: {{$post->dislikes()->count()}}" data-bs-placement="top"
+               class="border border-dark-subtle ms-1 me-1 border-2 rounded p-0 m-0 px-1 likes-count{{$post->id}} @if($post->likes()->count() - $post->dislikes()->count()>0) text-success-emphasis @elseif($post->likes()->count() - $post->dislikes()->count()<0) text-danger-emphasis
         @endif">{{$post->likes()->count() - $post->dislikes()->count()}}</p>
 
             @auth
@@ -120,3 +121,11 @@
         </div>
     </div>
 </div>
+
+{{--@if($post->bestComment)--}}
+{{--    @php $comment = $post->bestComment @endphp--}}
+{{--    @include('includes.commentBlock')--}}
+{{--    <div class="mb-5"></div>--}}
+{{--    --}}
+{{--@endif--}}
+

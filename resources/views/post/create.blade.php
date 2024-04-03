@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('posts.create')
     active
-@endsection0
+@endsection
 @section('default')
     <p class="h1 text-center mb-5 mt-5 text-info"> Create your own post </p>
     <form action="{{route('posts.store')}}" method="post" class="w-50 m-auto text-white p-0">
