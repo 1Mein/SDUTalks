@@ -17,9 +17,7 @@ class IndexController extends Controller
 
 
         $posts = Post::where('is_published', 1)->orderBy('created_at', 'desc')->paginate(5);
-//        foreach ($posts as $post){
-//            $post['author'] =  $post->user->name;
-//        }
+
         return view('post.index',compact(['posts']));
     }
 }

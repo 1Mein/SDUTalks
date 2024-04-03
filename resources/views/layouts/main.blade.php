@@ -45,15 +45,16 @@
                          data-bs-toggle="modal" data-bs-target="#avatar" alt="" width="32" height="32"
                          class="rounded-circle me-2 avatar">
 
+
                     <div class="modal fade" id="avatar" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" alt="" class="p-3">
+                                <div class="modal-body">
+                                    <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" alt="" class="p-3">
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
 
                     <a href="{{route('index.profile')}}" class="text-white fs-6"
                        style="text-decoration: none"><strong>{{auth()->user()->name}}</strong></a>
@@ -71,8 +72,8 @@
             @yield('default')
         </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
+{{--    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>--}}
+    <script type="module">
         $(document).ready(function () {
             $('.like-btn').on('click', function () {
                 var postId = $(this).data('post-id');
@@ -163,6 +164,14 @@
                 }
             })
         });
+
+        $('form').on('submit', function(e){
+            var submitButton = $(this).find('button[type="submit"]');
+
+            submitButton.prop('disabled', true);
+            submitButton.html('<span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status"> Loading...</span>');
+        });
+
     </script>
     </body>
 @endsection
