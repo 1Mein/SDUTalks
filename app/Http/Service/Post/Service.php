@@ -8,12 +8,18 @@ use App\Models\User;
 
 class Service
 {
-    public function store($data){
-        $data['user_id'] = auth()->user()->id;
+    public function store($data)
+    {
+        if (isset($data['is_anonymous']) && $data['is_anonymous'] === 'on') {
+            $data['user_id'] = 5; //anon account
+            unset($data['is_anonymous']);
+        } else {
+            $data['user_id'] = auth()->user()->id;
+        }
         Post::create($data);
     }
 
-    public function setLike(Post $post,$user,int $postId, int $userId): string
+    public function setLike(Post $post, $user, int $postId, int $userId): string
     {
         $action = '';
         if ($post->liked($user)) {
@@ -37,7 +43,7 @@ class Service
         return $action;
     }
 
-    public function setDislike(Post $post,$user,int $postId, int $userId): string
+    public function setDislike(Post $post, $user, int $postId, int $userId): string
     {
         $action = '';
         if ($post->disliked($user)) {

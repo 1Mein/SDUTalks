@@ -27,7 +27,8 @@ class RegistrationController extends Controller
 
         $user = User::create([
             'name'=>$request->name,
-            'password' => $request->password
+            'password' => $request->password,
+            'avatar' => 'serega'.rand(0,6).'.png',
         ]);
 
         Auth::login($user);

@@ -60,3 +60,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Profile', 'prefix' => '/profi
     Route::post('/update', 'UpdateController')->name('update.profile');
     Route::get('/{user}','ShowController')->name('show.profile');
 });
+
+Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => '/blog'],function () {
+    Route::get('', 'IndexController')->name('index.blog');
+});

@@ -24,7 +24,8 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'nullable|string|max:80',
             'content' => 'required|string|max:80000',
-            'is_published' => 'boolean'
+            'is_published' => 'boolean',
+            'is_anonymous' => 'string',
         ];
     }
 }
