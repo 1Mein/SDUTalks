@@ -30,7 +30,7 @@
             @include('includes.commentBlock')
         @endforeach
         <div class="d-flex justify-content-center">
-            {{$comments->links()}}
+            {{$comments->onEachSide(0)->links()}}
         </div>
     </div>
 @endsection

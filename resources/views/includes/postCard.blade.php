@@ -68,9 +68,9 @@
     </div>
 
     <div class="card-body text-white"> {{--text-center--}}
-        <a href="{{route('posts.show',$post->id)}}" class="h5 text-break"
-           style="text-decoration:none"><b>{{$post->title}}</b></a>
-        <p class="m-0">{{$post->content}}</p>
+        <a href="{{route('posts.show',$post->id)}}" class="text-white"
+           style="text-decoration:none"><b class="h5 text-break">{{$post->title}}</b>
+        <p class="m-0">{{$post->content}}</p></a>
     </div>
 
     <div class="card-footer d-flex justify-content-between">

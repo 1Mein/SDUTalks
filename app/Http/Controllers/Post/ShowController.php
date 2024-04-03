@@ -12,7 +12,7 @@ class ShowController extends Controller
 {
     public function __invoke(Post $post)
     {
-        $comments = Comment::where('post_id',$post->id)->orderBy('created_at', 'desc')->paginate(20);;
+        $comments = Comment::where('post_id',$post->id)->orderBy('created_at', 'desc')->paginate(15);;
         return view('post.show', compact(['post','comments']));
     }
 }

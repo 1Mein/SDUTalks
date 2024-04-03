@@ -9,7 +9,7 @@
         @method('patch')
         <div class="mb-3">
             <label for="title" class="form-label fs-5 d-flex justify-content-between">Title<p class="text-muted p-0 m-0">Max 80 characters</p></label>
-            <input type="text" name="title" class="form-control text-white" id="title" placeholder="Minecraft!" value="@if(old("title")){{ old("title")}}@else{{$post->title}}@endif">
+            <input type="text" name="title" class="form-control text-white" id="title" placeholder="Minecraft!(This field is not required)" value="@if(old("title")){{ old("title")}}@else{{$post->title}}@endif">
             @error('title')
                 <p class="text-danger">{{$message}}</p>
             @enderror
