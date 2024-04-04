@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'post.owner' => \App\Http\Middleware\CheckPostOwnership::class,
         'comment.owner' => \App\Http\Middleware\CommentOwner::class,
+        'notify.owner' => \App\Http\Middleware\NotificationOwner::class,
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'private.post'=>\App\Http\Middleware\PrivatePost::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,

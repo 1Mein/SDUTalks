@@ -23,6 +23,10 @@
     .delete-comment:hover{
         cursor: pointer;
     }
+    .delete-notification:hover{
+        cursor: pointer;
+    }
+
 </style>
 
 

@@ -39,7 +39,7 @@
         <p class="fs-5">А тариф в которым доступен node там минимум 3к надо платить в месяц(Я сейчас плачу 600тг)</p>
 
         <p class="fs-5 m-0 mt-2 mb-1">Это то как я сделал Аноним мод. 5 это айди анонимного аккаунта. На хосте это 55.</p>
-        <img src="{{asset('/images/anon1.png')}}" alt="screen" class="d-block mx-auto">
+        <img src="{{asset('/images/anon1.png')}}" alt="screen" class="d-block mx-auto rounded-5">
         <div class="mt-5"></div>
 
         <p class="fs-5">Скоро буду делать уведомления.</p>

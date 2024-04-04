@@ -17,6 +17,7 @@ class LikeController extends BaseController
         $action = $this->service->setLike($post,$user,$postId,$userId);
 
 
+
         return response()->json(['action' => $action, 'likes' => $post->likes()->count(), 'dislikes' => $post->dislikes()->count(), 'id' => $postId]);
     }
 

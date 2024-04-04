@@ -36,10 +36,15 @@
                 @auth
                     <hr>
                     <li>
-                        <a href="{{route('posts.profile')}}" class="nav-link text-white @yield('posts.profile')">
-                            Manage your posts
+                        <a href="{{route('notifies.index')}}" class="nav-link text-white @yield('index.notification')">
+                            Notifications
                         </a>
                     </li>
+{{--                    <li>--}}
+{{--                        <a href="{{route('posts.profile')}}" class="nav-link text-white @yield('posts.profile')">--}}
+{{--                            Manage your posts--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li>
                         <a href="{{route('index.profile')}}" class="nav-link text-white @yield('index.profile')">
                             Your profile
@@ -71,7 +76,7 @@
                     </div>
                     <form action="{{route('logout')}}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-danger m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                        <button type="submit" class="btn btn-danger m-0 pt-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
                                 <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
                             </svg></button>
                     </form>
@@ -201,6 +206,31 @@
                     }
 
                     $commentMain.remove();
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+
+        $('.delete-notification').on('click', function () {
+            var notificationId = $(this).data('notification-id');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var $notificationMain = $(this).closest('.notification-main');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/notifies/' + notificationId,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(typeof response.error !== 'undefined'){
+                        console.log(response.error);
+                        return;
+                    }
+
+                    $notificationMain.remove();
                 },
                 error: function(error){
                     console.log(error);

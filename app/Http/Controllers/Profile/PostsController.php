@@ -14,7 +14,8 @@ class PostsController extends Controller
     public function __invoke()
     {
         $currentPage = Request::query('page',1);
-//        dd($currentPage);
+
+
         $user = auth()->user();
         $posts = Post::where('user_id',$user->id)->orderBy('created_at', 'desc')->paginate(5);
         foreach ($posts as $post) {

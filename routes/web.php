@@ -65,3 +65,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Profile', 'prefix' => '/profi
 Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => '/blog'],function () {
     Route::get('', 'IndexController')->name('index.blog');
 });
+
+
+Route::group(['namespace' => 'App\Http\Controllers\Notify', 'prefix' => '/notifies'], function () {
+    Route::get('', 'IndexController')->middleware('auth')->name('notifies.index');
+    Route::delete('/{notify}', 'DestroyController')->middleware('auth','notify.owner')->name('notifies.destroy');
+});
