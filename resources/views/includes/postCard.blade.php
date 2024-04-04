@@ -20,7 +20,7 @@
         </div>
         @auth()
             {{--manage start--}}
-            @if($post->user_id === auth()->user()->id)
+            @if($post->user_id === auth()->user()->id || 1 === auth()->user()->id)
                 <div class="d-flex justify-content-center">
                     <a href="{{route('posts.edit',$post->id)}}" class="my-auto text-warning ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -71,7 +71,7 @@
         <div class="card-body text-white"> {{--text-center--}}
 
             <b class="h5 text-break">{{$post->title}}</b>
-            <p class="m-0">{{$post->content}}</p>
+            <div class="m-0" style="white-space: pre-wrap;">{{$post->content}}</div>
         </div>
     </a>
     <div class="card-footer d-flex justify-content-between">

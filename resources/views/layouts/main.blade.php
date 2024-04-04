@@ -28,7 +28,7 @@
 
                 <hr>
                 <li>
-                    <a href="{{route('index.blog')}}" class="nav-link text-white @yield('posts.create')">
+                    <a href="{{route('index.blog')}}" class="nav-link text-white @yield('blog.index')">
                         MeinOne's blog
                     </a>
                 </li>
@@ -71,7 +71,9 @@
                     </div>
                     <form action="{{route('logout')}}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-danger m-0"><i class="bi-door-open-fill"></i></button>
+                        <button type="submit" class="btn btn-danger m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                                <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+                            </svg></button>
                     </form>
 
                 @else
@@ -87,7 +89,7 @@
     </main>
 
 
-    {{--        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>--}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script type="module">
         $(document).ready(function () {
