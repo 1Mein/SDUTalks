@@ -181,6 +181,31 @@
             })
         });
 
+        $('.delete-comment').on('click', function () {
+            var commentId = $(this).data('comment-id');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var $commentMain = $(this).closest('.comment-main');
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/comment/' + commentId,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(typeof response.error !== 'undefined'){
+                        console.log(response.error);
+                        return;
+                    }
+
+                    $commentMain.remove();
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+
         $('form').on('submit', function (e) {
             var submitButton = $(this).find('button[type="submit"]');
 

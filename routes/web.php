@@ -50,7 +50,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Post', 'prefix' => 'posts'], 
 
 Route::group(['namespace' => 'App\Http\Controllers\Comment', 'prefix' => '/comment'],function (){
     Route::post('/{post}','StoreController')->middleware('auth')->name('comment.store');
-    Route::get('/{comment}','ShowController')->name('comment.show');
+    Route::get('/{comment}','ShowController')->middleware('auth')->name('comment.show');
+    Route::delete('/{comment}','DestroyController')->middleware('auth','comment.owner')->name('comment.destroy');
 });
 
 

@@ -1,0 +1,11 @@
+.delete-comment:hover{
+    cursor: pointer;
+}
+
+.pretty-code {
+    font-family: monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: 0px solid #ccc;
+    border-radius: 5px;
+}
