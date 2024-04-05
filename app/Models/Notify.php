@@ -12,12 +12,27 @@ class Notify extends Model
 
     use HasFactory;
 
+    public function users(){
+        return $this->BelongsToMany(User::class, 'user_notifies', 'notify_id', 'user_id');
+    }
+
     public function getUsername($userId)
     {
         return User::find($userId)->name;
     }
 
-    public function users(){
-        return $this->BelongsToMany(User::class, 'user_notifies', 'notify_id', 'user_id');
+    public function getText($post)
+    {
+        $post = Post::find($post);
+
+        $text = $post->title??$post->content;
+        $suffix ='';
+
+        if(strlen($text)>=15){
+            $suffix = '...';
+        }
+
+        return substr($text,0,15).$suffix;
     }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Notify;
 
 use App\Models\Notify;
 use App\Models\User;
+use App\Models\UserNotify;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +25,20 @@ class IndexController extends Controller
 
         foreach ($notifies as $notify) {
             if ($notify->updated_at != $notify->created_at) {
-                $notify->time = 'Edited '.Carbon::parse($notify->updated_at)->diffForHumans();
+                $notify->time = 'Edited ' . Carbon::parse($notify->updated_at)->diffForHumans();
             } else {
                 $notify->time = Carbon::parse($notify->created_at)->diffForHumans();
             }
+
+
+            $userNotify = UserNotify::where('user_id', $user->id)->where('notify_id', $notify->id)->first();
+
+            $notify->is_viewed = $userNotify->is_viewed;
+
+            if(!$userNotify->is_viewed){
+                $userNotify->update(['is_viewed' => true]);
+            }
+
         }
 
         return view('notification.index', compact(['notifies']));

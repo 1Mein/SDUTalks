@@ -17,7 +17,7 @@ class PostsController extends Controller
 
 
         $user = auth()->user();
-        $posts = Post::where('user_id',$user->id)->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::where('user_id',$user->id)->orderBy('created_at', 'desc')->paginate(10);
         foreach ($posts as $post) {
             $post['author'] = $user->name;
             $post->time = '';

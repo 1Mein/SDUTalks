@@ -11,7 +11,7 @@ class ShowController extends Controller
 {
     public function __invoke(User $user)
     {
-//        $posts = $user->posts()->where('is_published',1)->orderBy('created_at', 'desc')->paginate(5);
+//        $posts = $user->posts()->where('is_published',1)->orderBy('created_at', 'desc')->paginate(10);
         $posts = $user
             ->posts()
             ->where('is_published',1)
@@ -37,7 +37,7 @@ class ShowController extends Controller
             $data['likes']+=$post->likes->count();
             $data['dislikes']+=$post->dislikes->count();
         }
-        $posts = $posts->paginate(5);
+        $posts = $posts->paginate(10);
         return view('profile.show',compact(['user','data','posts']));
     }
 }

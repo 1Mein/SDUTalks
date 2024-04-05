@@ -17,4 +17,8 @@ class UserNotify extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function countNotifications($userId){
+        return count(UserNotify::where('user_id',$userId)->where('is_viewed',false)->get());
+    }
 }

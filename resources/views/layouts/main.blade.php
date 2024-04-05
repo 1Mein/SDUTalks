@@ -3,7 +3,7 @@
     <body>
     <main class="row m-0">
         <div class="col-2 text-bg-dark p-4">
-            <a href="{{route('posts.index')}}" class="d-block text-center mb-3 text-decoration-none">
+            <a href="{{route('posts.index')}}" class="d-block text-center mb-3 text-decoration-none logotype">
                 {{--                <span class="fs-2 text-info">SduTalks!</span>--}}
                 <img class="w-75" src="{{ asset('images/logo.png') }}" alt="">
             </a>
@@ -36,8 +36,16 @@
                 @auth
                     <hr>
                     <li>
-                        <a href="{{route('notifies.index')}}" class="nav-link text-white @yield('index.notification')">
+                        <a href="{{route('notifies.index')}}" class="nav-link text-white @yield('index.notification') d-flex justify-content-between">
                             Notifications
+                            @php
+                                $notificationCount = \App\Models\UserNotify::countNotifications(auth()->id());
+                            @endphp
+                            @if($notificationCount > 0)
+                                <div class="bg-danger rounded-5 px-2" style="font-size: 15px">
+                                    {{ $notificationCount > 9 ? '9+' : $notificationCount }}
+                                </div>
+                            @endif
                         </a>
                     </li>
 {{--                    <li>--}}

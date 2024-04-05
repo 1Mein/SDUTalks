@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\UserNotify;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
