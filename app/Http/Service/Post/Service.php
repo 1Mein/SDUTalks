@@ -45,14 +45,14 @@ class Service
         }
 
         if ($action ==='like'){
-            $this->createNotify($post->user()->value('id'), 'post-like','',$userId,$postId);
+            Notify::createNotify($post->user()->value('id'), 'post-like','',$userId,$postId);
         }
         elseif ($action === 'undislike like'){
-            $this->removeNotify('post-dislike',$userId, $postId);
-            $this->createNotify($post->user()->value('id'), 'post-like','',$userId,$postId);
+            Notify::removeNotify('post-dislike',$userId, $postId);
+            Notify::createNotify($post->user()->value('id'), 'post-like','',$userId,$postId);
         }
         else{
-            $this->removeNotify('post-like',$userId, $postId);
+            Notify::removeNotify('post-like',$userId, $postId);
         }
 
         return $action;
@@ -81,68 +81,16 @@ class Service
         }
 
         if ($action === 'dislike'){
-            $this->createNotify($post->user()->value('id'), 'post-dislike','',$userId,$postId);
+            Notify::createNotify($post->user()->value('id'), 'post-dislike','',$userId,$postId);
         }
         elseif ($action === 'unlike dislike'){
-            $this->removeNotify('post-like',$userId, $postId);
-            $this->createNotify($post->user()->value('id'), 'post-dislike','',$userId,$postId);
+            Notify::removeNotify('post-like',$userId, $postId);
+            Notify::createNotify($post->user()->value('id'), 'post-dislike','',$userId,$postId);
         }
         else{
-            $this->removeNotify('post-dislike',$userId, $postId);
+            Notify::removeNotify('post-dislike',$userId, $postId);
         }
 
         return $action;
     }
-
-    public function createNotify($destUser, $type, $text = '', $fromUser = null, $onPost = null, $onComment = null)
-    {
-        try {
-            DB::beginTransaction();
-
-            $data = [
-                'type' => $type,
-                'from_user' => $fromUser,
-                'on_post' => $onPost,
-                'on_comment' => $onComment,
-                'text' => $text,
-            ];
-
-            $notify = Notify::firstOrCreate($data);
-
-            $data = [
-                'user_id' => $destUser,
-                'notify_id' => $notify->id,
-                'is_viewed' => 0,
-            ];
-
-            $userNotify = UserNotify::firstOrCreate($data);
-            DB::commit();
-        }
-        catch (\Exception $exception){
-            DB::rollBack();
-            abort(500);
-        }
-    }
-
-    public function removeNotify($type, $fromUser, $onPost = null, $onComment = null)
-    {
-        try {
-            DB::beginTransaction();
-
-            $data = [
-                'type' => $type,
-                'from_user' => $fromUser,
-                'on_post' => $onPost,
-                'on_comment' => $onComment,
-            ];
-
-            $notify = Notify::where($data)->delete();
-            DB::commit();
-        }
-        catch (\Exception $exception){
-            DB::rollBack();
-            abort(500);
-        }
-    }
-
 }

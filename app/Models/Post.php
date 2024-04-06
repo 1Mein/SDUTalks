@@ -56,4 +56,22 @@ class Post extends Model
     {
         return $this->comments()->sortByDesc('created_at')->first();
     }
+
+    public function userNotifies()
+    {
+        $notifiesIds = $this->hasMany(Notify::class, 'on_post', 'id')->pluck('id');
+
+        return UserNotify::whereIn('notify_id', $notifiesIds)->get();
+    }
+
+
+
+    protected static function booted()
+    {
+        static::deleting(function ($post) {
+            $post->userNotifies()->each(function ($notify) {
+                $notify->delete();
+            });
+        });
+    }
 }
