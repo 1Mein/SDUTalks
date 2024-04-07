@@ -1,13 +1,7 @@
 body {
     background: #212529;
 }
-.delete-comment:hover{
-    cursor: pointer;
-}
-.delete-notification:hover{
-    cursor: pointer;
-}
-.delete-image:hover{
+.cursor-pointer:hover{
     cursor: pointer;
 }
 .nav-link:hover {
