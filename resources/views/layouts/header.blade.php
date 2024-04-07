@@ -8,7 +8,7 @@
 {{--    <link rel="shortcut icon" href="../css/logo.png" type="image/x-icon">--}}
 
     <!-- Bootstrap CSS via CDN -->
-{{--    @vite(['resources/css/app.css'])--}}
+    @vite(['resources/css/app.css'])
 {{--    @vite(['resources/js/app.js'])--}}
 {{--    @vite(['resources/sass/app.scss'])--}}
     <link rel="stylesheet" href="{{asset('style.css')}}">
@@ -18,36 +18,7 @@
     <title>SDU Talks!</title>
 </head>
 <style>
-    body {
-        background: #212529;
-    }
-    .delete-comment:hover{
-        cursor: pointer;
-    }
-    .delete-notification:hover{
-        cursor: pointer;
-    }
-    .delete-image:hover{
-        cursor: pointer;
-    }
-    .nav-link:hover {
-        border: #007bff 1px solid;
-        margin: 2px 0;
-        transform: scale(1.05);
-    }
 
-    .nav-link {
-        border: rgb(0,0,0,0) 1px solid;
-        margin: 2px 0;
-    }
-
-    .logotype{
-        transition: 0.7s;
-    }
-
-    .logotype:hover{
-        transform: scale(1.05);
-    }
 </style>
 
 
