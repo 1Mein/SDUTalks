@@ -2,6 +2,7 @@
 
 namespace App\Http\Service\Post;
 
+use App\Http\Requests\Post\StoreRequest;
 use App\Models\Like;
 use App\Models\Notify;
 use App\Models\Post;
@@ -11,15 +12,31 @@ use Illuminate\Support\Facades\DB;
 
 class Service
 {
-    public function store($data)
+    public function store($data, StoreRequest $request)
     {
-        if (isset($data['is_anonymous']) && $data['is_anonymous'] === 'on') {
-            $data['user_id'] = 55; //anon account
-            unset($data['is_anonymous']);
-        } else {
-            $data['user_id'] = auth()->user()->id;
+        try {
+            DB::beginTransaction();
+            if (isset($data['is_anonymous']) && $data['is_anonymous'] === 'on') {
+                $data['user_id'] = 55; //anon account
+                unset($data['is_anonymous']);
+            } else {
+                $data['user_id'] = auth()->user()->id;
+            }
+
+            if (isset($data['image'])) {
+                $filename = preg_replace("/[^a-zA-Z0-9-_\.]/", "", $request->file('image')->getClientOriginalName());
+
+                $filename = time() . '_' . $filename;
+                $request->file('image')->storeAs('public/images/', $filename);
+
+                $data['image'] = $filename;
+            }
+            Post::create($data);
+            DB::commit();
+        } catch (\Exception $e){
+            DB::rollBack();
+            abort(400);
         }
-        Post::create($data);
     }
 
     public function setLike(Post $post, $user, int $postId, int $userId): string
@@ -44,15 +61,13 @@ class Service
             $like->save();
         }
 
-        if ($action ==='like'){
-            Notify::createNotify($post->user()->value('id'), 'post-like','',$userId,$postId);
-        }
-        elseif ($action === 'undislike like'){
-            Notify::removeNotify('post-dislike',$userId, $postId);
-            Notify::createNotify($post->user()->value('id'), 'post-like','',$userId,$postId);
-        }
-        else{
-            Notify::removeNotify('post-like',$userId, $postId);
+        if ($action === 'like') {
+            Notify::createNotify($post->user()->value('id'), 'post-like', '', $userId, $postId);
+        } elseif ($action === 'undislike like') {
+            Notify::removeNotify('post-dislike', $userId, $postId);
+            Notify::createNotify($post->user()->value('id'), 'post-like', '', $userId, $postId);
+        } else {
+            Notify::removeNotify('post-like', $userId, $postId);
         }
 
         return $action;
@@ -80,15 +95,13 @@ class Service
             $dislike->save();
         }
 
-        if ($action === 'dislike'){
-            Notify::createNotify($post->user()->value('id'), 'post-dislike','',$userId,$postId);
-        }
-        elseif ($action === 'unlike dislike'){
-            Notify::removeNotify('post-like',$userId, $postId);
-            Notify::createNotify($post->user()->value('id'), 'post-dislike','',$userId,$postId);
-        }
-        else{
-            Notify::removeNotify('post-dislike',$userId, $postId);
+        if ($action === 'dislike') {
+            Notify::createNotify($post->user()->value('id'), 'post-dislike', '', $userId, $postId);
+        } elseif ($action === 'unlike dislike') {
+            Notify::removeNotify('post-like', $userId, $postId);
+            Notify::createNotify($post->user()->value('id'), 'post-dislike', '', $userId, $postId);
+        } else {
+            Notify::removeNotify('post-dislike', $userId, $postId);
         }
 
         return $action;

@@ -46,6 +46,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Post', 'prefix' => 'posts'], 
     Route::patch('/{post}/toggle','ToggleController')->middleware(['auth','post.owner'])->name('posts.toggle');
     Route::patch('/{post}', 'UpdateController')->middleware(['auth','post.owner'])->name('posts.update');
     Route::delete('/{post}','DestroyController')->middleware(['auth','post.owner'])->name('posts.destroy');
+    Route::delete('/{post}/image','DestroyImageController')->middleware(['auth','post.owner'])->name('posts.image.destroy');
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Comment', 'prefix' => '/comment'],function (){

@@ -1,7 +1,4 @@
 <div class="d-block my-3 card shadow-sm p-0">
-    @if($post->image)
-        <img src="{{$post->image}}" class="card-img-top" alt="...">
-    @endif
     <div class="card-header d-flex justify-content-between ps-2">
         <div>
             <img src="{{asset('storage/avatars/'.$post->user->avatar)}}" role="button" data-bs-toggle="modal"
@@ -67,13 +64,37 @@
         @endauth
         <p class="m-0 my-auto">{{$post->time}}</p>
     </div>
-    <a href="{{route('posts.show',$post->id)}}" class="text-white" style="text-decoration:none">
+{{--    <a href="{{route('posts.show',$post->id)}}" class="text-white" style="text-decoration:none">--}}
         <div class="card-body text-white"> {{--text-center--}}
-
-            <b class="h5 text-break">{{$post->title}}</b>
+            @if($post->title)
+                <b class="h5 text-break">{{$post->title}}</b>
+            @endif
+            @if($post->content)
             <div class="m-0" style="white-space: pre-wrap;">{{$post->content}}</div>
+            @endif
+            @if($post->image)
+                @php
+                    $extension = pathinfo($post->image, PATHINFO_EXTENSION);
+                @endphp
+
+                @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg']))
+                    <div class="p-1">
+                        {{-- card-img-top --}}
+                        <img src="{{asset('storage/images/'.$post->image)}}"
+                             class="img-fluid rounded-3 mx-auto d-block"
+                             style="min-height:100px; max-height: 300px;" alt="...">
+
+                    </div>
+                @elseif (in_array($extension, ['mp4', 'avi', 'mov', 'wmv']))
+                    <video class="mx-auto d-block" width="640" height="360" controls>
+                        <source src="{{asset('storage/images/'.$post->image)}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                @endif
+            @endif
         </div>
-    </a>
+{{--    </a>--}}
+
     <div class="card-footer d-flex justify-content-between">
         <div class="d-flex justify-content-start align-items-center">
             @auth

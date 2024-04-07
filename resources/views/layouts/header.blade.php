@@ -27,6 +27,9 @@
     .delete-notification:hover{
         cursor: pointer;
     }
+    .delete-image:hover{
+        cursor: pointer;
+    }
     .nav-link:hover {
         border: #007bff 1px solid;
         margin: 2px 0;

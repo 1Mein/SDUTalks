@@ -21,7 +21,7 @@ class StoreController extends Controller
             $data['user_id'] = 55; //anon account
             unset($data['is_anonymous']);
         } else {
-            $data['user_id'] = auth()->user()->id;
+            $data['user_id'] = auth()->id();
         }
         $data['post_id'] = $request->post;
         $comment = Comment::create($data);

@@ -31,6 +31,15 @@
             </a>
         </div>
 
+
+
+        <div class="text-center">
+            <span class="text-white-50">07.04.2024</span>
+        </div>
+        <img src="{{asset('/images/kotiki-chibi-kavai-2.gif')}}" alt="screen" class="d-block mx-auto mt-1 mb-4 rounded-5" width="100px">
+
+
+
         <div class="text-center">
             <span class="text-white-50">04.04.2024</span>
         </div>
