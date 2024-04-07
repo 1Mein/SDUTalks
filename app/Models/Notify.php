@@ -29,11 +29,11 @@ class Notify extends Model
         $text = $post->title??$post->content;
         $suffix ='';
 
-        if(strlen($text)>=15){
+        if(strlen($text)>=16){
             $suffix = '...';
         }
 
-        return substr($text,0,15).$suffix;
+        return mb_substr($text,0,16,'UTF-8').$suffix;
     }
 
 
