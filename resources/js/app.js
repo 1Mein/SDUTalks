@@ -1,8 +1,7 @@
 import './bootstrap';
 import '../sass/app.scss';
-// import jQuery from 'jquery';
-// import '@floating-ui/';
-// import '@popperjs/core';
+import jQuery from 'jquery';
+import '@popperjs/core';
 
 
-// window.$ = jQuery;
+window.$ = jQuery;
