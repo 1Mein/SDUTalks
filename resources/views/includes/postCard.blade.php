@@ -74,7 +74,7 @@
             @endif
             @if($post->image)
                 @php
-                    $extension = pathinfo($post->image, PATHINFO_EXTENSION);
+                    $extension = mb_strtolower(pathinfo($post->image, PATHINFO_EXTENSION),'UTF-8');
                 @endphp
 
                 @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg']))
