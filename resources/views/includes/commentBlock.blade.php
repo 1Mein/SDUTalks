@@ -41,7 +41,7 @@
         @php $repliedComment = \App\Models\Comment::find($comment->on_comment) @endphp
         <div class="bg-black bg-opacity-25 rounded-3 p-2 mb-1">
             <span> Replied: {{$repliedComment->user->name}}</span><br>
-            <span> {{$repliedComment->comment}}</span>
+            <span style="word-wrap: break-word;"> {{$repliedComment->comment}}</span>
         </div>
     @endif
     <a href="{{route('comment.show', $comment)}}" class="text-white" style="text-decoration: none">
