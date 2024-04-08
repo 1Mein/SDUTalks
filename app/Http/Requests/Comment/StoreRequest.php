@@ -23,6 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'comment' => 'required|string|max:80000',
+            'on_comment' => 'nullable|integer|exists:comments,id',
             'is_anonymous' => 'string',
         ];
     }

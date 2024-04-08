@@ -39,6 +39,15 @@
                     <a href="{{route('posts.show',$notify->on_post)}}"
                        class="text-decoration-none">{{$notify->getText($notify->on_post)}}</a>
                 </div>
+            @elseif($notify->type === 'replied-comment')
+                <div>
+                    <a href="{{route('show.profile',$notify->from_user)}}" class="text-decoration-none">
+                        {{$notify->getUsername($notify->from_user)}}
+                    </a>
+                    {{' responded to your comment: '}}
+                    <a href="{{route('comment.show',$notify->on_comment)}}"
+                       class="text-decoration-none">{{$notify->getTextComment($notify->on_comment)}}</a>
+                </div>
             @endif
         </div>
         <div class="my-auto d-flex">

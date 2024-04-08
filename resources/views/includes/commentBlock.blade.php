@@ -12,13 +12,18 @@
                         </div>
                     </div>
                 </div>
-                <a class="m-0 text-white text-break my-auto me-2" href="{{route('show.profile',$comment->user)}}"
+                <a class="m-0 text-white text-break my-auto me-2 comment-author" href="{{route('show.profile',$comment->user)}}"
                    style="text-decoration: none">{{$comment->user->name}}</a>
             </div>
             <div class="d-flex justify-content-between">
                 <div class="my-auto d-flex">
                     @auth()
                         @if(auth()->id() === $comment->user_id  || 1 === auth()->id())
+                            @if(Str::contains(request()->url(), '/posts/'))
+                                <a class="reply-comment text-white me-2 cursor-pointer" data-comment-id="{{$comment->id}}">
+                                    <span>Reply</span>
+                                </a>
+                            @endif
 
                             <a class="delete-comment text-white me-2 cursor-pointer" data-comment-id="{{$comment->id}}">
                                 <i class="bi bi-trash fs-5"></i>
@@ -32,7 +37,14 @@
         </div>
     </div>
     <hr>
+    @if($comment->on_comment)
+        @php $repliedComment = \App\Models\Comment::find($comment->on_comment) @endphp
+        <div class="bg-black bg-opacity-25 rounded-3 p-2 mb-1">
+            <span> Replied: {{$repliedComment->user->name}}</span><br>
+            <span> {{$repliedComment->comment}}</span>
+        </div>
+    @endif
     <a href="{{route('comment.show', $comment)}}" class="text-white" style="text-decoration: none">
-        <div class="m-0" style="white-space: pre-wrap;">{{$comment->comment}}</div>
+        <div class="m-0 comment-text" style="white-space: pre-wrap; word-wrap: break-word;">{{$comment->comment}}</div>
     </a>
 </div>

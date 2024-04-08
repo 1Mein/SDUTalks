@@ -107,6 +107,8 @@
     <script type="module">
         $(document).ready(function () {
 
+
+
             $('.like-btn').on('click', function () {
                 var postId = $(this).data('post-id');
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -247,9 +249,8 @@
         });
 
         $('.delete-image').on('click', function () {
-            var postId = $(this).data('post-id');
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var $imageMain = $(this).closest('.image-main');
+            var commentId = $(this).data('comment-id');
+            var $commentMain = $(this).closest('.comment-main');
 
             $.ajax({
                 type: 'DELETE',
@@ -271,6 +272,30 @@
             });
         });
 
+        $('.reply-comment').on('click', function () {
+            let commentId = $(this).data('comment-id');
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+            let commentMain = $(this).closest('.comment-main');
+            let commentAuthor = commentMain.find('.comment-author')
+            let commentText = commentMain.find('.comment-text')
+
+            let wrapper = $('.reply-wrapper')
+
+            // console.log(commentId,commentAuthor.text(),commentAuthor)
+            wrapper.html('' +
+                '<div class="my-1 p-2 bg-dark-subtle rounded-3">' +
+                    '<div>' +
+                        '<span>Reply to: ' + commentAuthor.text() + '</span>' +
+                        '<a href="" class="text-white-50" onclick="cancelReply(event)" type="button">' +
+                            '<i class="ms-3 me-1 bi bi-x-circle"></i>' +
+                            'Cancel' +
+                        '</a>' +
+                    '</div>' +
+                    '<span style="word-wrap: break-word;">' + commentText.text() + '</span>' +
+                '</div>' +
+                '<input type="hidden" name="on_comment" value="' + commentId + '">');
+        })
+
         $('form').on('submit', function (e) {
             var submitButton = $(this).find('button[type="submit"]');
 
@@ -279,8 +304,18 @@
         });
 
 
+
+
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+    <script>
+        cancelReply = function (event) {
+            event.preventDefault();
+            let wrapper = $('.reply-wrapper');
+            wrapper.html('');
+        }
     </script>
     </body>
 @endsection

@@ -24,7 +24,15 @@ class StoreController extends Controller
             $data['user_id'] = auth()->id();
         }
         $data['post_id'] = $request->post;
+
+
         $comment = Comment::create($data);
+
+        if (isset($data['on_comment'])){
+            $repliedComment = Comment::find($data['on_comment']);
+
+            Notify::createNotify($repliedComment->user_id,'replied-comment', '', $data['user_id'],$data['post_id'],$comment->id);
+        }
 
         Notify::createNotify(Post::find($request->post)->user_id,'commented-post','',$data['user_id'], $data['post_id'], $comment->id);
 

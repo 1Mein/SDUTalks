@@ -13,7 +13,8 @@ class Notify extends Model
 
     use HasFactory;
 
-    public function users(){
+    public function users()
+    {
         return $this->BelongsToMany(User::class, 'user_notifies', 'notify_id', 'user_id');
     }
 
@@ -22,18 +23,33 @@ class Notify extends Model
         return User::find($userId)->name;
     }
 
-    public function getText($post)
+    public function getText($postId)
     {
-        $post = Post::find($post);
+        $post = Post::find($postId);
 
-        $text = $post->title??$post->content;
-        $suffix ='';
+        $text = $post->title ?? $post->content;
+        $suffix = '';
 
-        if(strlen($text)>=16){
+        if (strlen($text) >= 16) {
             $suffix = '...';
         }
 
-        return mb_substr($text,0,16,'UTF-8').$suffix;
+        return mb_substr($text, 0, 16, 'UTF-8') . $suffix;
+    }
+
+
+    public function getTextComment($commentId)
+    {
+        $comment = Comment::find($commentId);
+
+        $text = $comment->comment;
+        $suffix = '';
+
+        if (strlen($text) >= 16) {
+            $suffix = '...';
+        }
+
+        return mb_substr($text, 0, 16, 'UTF-8') . $suffix;
     }
 
 
@@ -60,8 +76,7 @@ class Notify extends Model
 
             $userNotify = UserNotify::firstOrCreate($data);
             DB::commit();
-        }
-        catch (\Exception $exception){
+        } catch (\Exception $exception) {
             DB::rollBack();
             abort(500);
         }
@@ -81,8 +96,7 @@ class Notify extends Model
 
             $notify = Notify::where($data)->delete();
             DB::commit();
-        }
-        catch (\Exception $exception){
+        } catch (\Exception $exception) {
             DB::rollBack();
             abort(500);
         }
