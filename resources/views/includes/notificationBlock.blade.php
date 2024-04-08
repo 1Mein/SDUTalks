@@ -1,6 +1,6 @@
 <div class="bg-dark-subtle p-3 rounded-4 my-2 notification-main">
     <div class="d-flex justify-content-between">
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
             @if(!$notify->is_viewed)
                 <div tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="New"
                      data-bs-placement="left"

@@ -42,6 +42,10 @@ class Notify extends Model
     {
         $comment = Comment::find($commentId);
 
+        if(!$comment){
+            return '';
+        }
+
         $text = $comment->comment;
         $suffix = '';
 
