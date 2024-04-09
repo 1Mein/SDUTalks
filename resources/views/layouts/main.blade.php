@@ -249,8 +249,8 @@
         });
 
         $('.delete-image').on('click', function () {
-            var commentId = $(this).data('comment-id');
-            var $commentMain = $(this).closest('.comment-main');
+            var postId = $(this).data('post-id');
+            var $imageMain = $(this).closest('.image-main');
 
             $.ajax({
                 type: 'DELETE',
