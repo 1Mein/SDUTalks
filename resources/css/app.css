@@ -16,9 +16,9 @@ body {
 }
 
 .logotype{
-    transition: 0.7s;
+    transition: 3s;
 }
 
 .logotype:hover{
-    transform: scale(1.05);
+    transform: rotate(360deg);
 }
