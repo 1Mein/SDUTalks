@@ -11,7 +11,8 @@ class DestroyController extends Controller
     public function __invoke(Comment $comment)
     {
         $comment->delete();
-        Notify::removeNotify('commented-post',$comment->user_id, $comment->post_id);
+        Notify::removeNotify('commented-post',$comment->user_id, $comment->post_id,$comment->id);
+        Notify::removeNotify('replied-comment',$comment->user_id, $comment->post_id,$comment->id);
         return response()->json(['id' => $comment->id]);
     }
 }
