@@ -249,6 +249,7 @@
         });
 
         $('.delete-image').on('click', function () {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var postId = $(this).data('post-id');
             var $imageMain = $(this).closest('.image-main');
 
