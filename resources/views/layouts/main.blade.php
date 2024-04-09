@@ -272,6 +272,7 @@
             });
         });
 
+
         $('.reply-comment').on('click', function () {
             let commentId = $(this).data('comment-id');
             let csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -281,20 +282,31 @@
 
             let wrapper = $('.reply-wrapper')
 
-            // console.log(commentId,commentAuthor.text(),commentAuthor)
-            wrapper.html('' +
-                '<div class="my-1 p-2 bg-dark-subtle rounded-3">' +
-                    '<div>' +
-                        '<span>Reply to: ' + commentAuthor.text() + '</span>' +
-                        '<a href="" class="text-white-50" onclick="cancelReply(event)" type="button">' +
-                            '<i class="ms-3 me-1 bi bi-x-circle"></i>' +
-                            'Cancel' +
-                        '</a>' +
-                    '</div>' +
-                    '<span style="word-wrap: break-word;">' + commentText.text() + '</span>' +
+            let text = '<div class="my-1 p-2 bg-dark-subtle rounded-3">' +
+                '<div>' +
+                '<span>Reply to: ' + commentAuthor.text() + '</span>' +
+                '<a href="" class="text-white-50" onclick="cancelReply(event)" type="button">' +
+                '<i class="ms-3 me-1 bi bi-x-circle"></i>' +
+                'Cancel' +
+                '</a>' +
                 '</div>' +
-                '<input type="hidden" name="on_comment" value="' + commentId + '">');
+                '<span style="word-wrap: break-word;">' + commentText.text() + '</span>' +
+                '</div>' +
+                '<input type="hidden" name="on_comment" value="' + commentId + '">';
+
+
+            @if(isset($comment))
+                if (!window.location.href.endsWith('/posts/{{$comment->post_id}}')){
+                    localStorage.setItem('comment-reply', 'true');
+                    localStorage.setItem('replied-comment', text);
+
+                    window.location.replace('/posts/{{$comment->post_id}}')
+                }
+            @endif
+
+            wrapper.html(text);
         })
+
 
         $('form').on('submit', function (e) {
             var submitButton = $(this).find('button[type="submit"]');
@@ -302,6 +314,13 @@
             submitButton.prop('disabled', true);
             submitButton.html('<span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status"> Loading...</span>');
         });
+
+        if (localStorage.getItem('comment-reply') === 'true'){
+            let wrapper = $('.reply-wrapper')
+            wrapper.html(localStorage.getItem('replied-comment'));
+            localStorage.removeItem('comment-reply');
+            localStorage.removeItem('replied-comment');
+        }
 
 
 

@@ -18,11 +18,11 @@
             <div class="d-flex justify-content-between">
                 <div class="my-auto d-flex">
                     @auth()
-                        @if(Str::contains(request()->url(), '/posts/'))
+{{--                        @if(Str::contains(request()->url(), '/posts/'))--}}
                             <a class="reply-comment text-white me-2 cursor-pointer" data-comment-id="{{$comment->id}}">
                                 <span>Reply</span>
                             </a>
-                        @endif
+{{--                        @endif--}}
 
                         @if(auth()->id() === $comment->user_id  || 1 === auth()->id())
                             <a class="delete-comment text-white me-2 cursor-pointer" data-comment-id="{{$comment->id}}">
