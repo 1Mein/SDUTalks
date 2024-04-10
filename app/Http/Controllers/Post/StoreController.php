@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Http\Controllers\Comment\BaseController;
 use App\Http\Requests\Post\StoreRequest;
 
 class StoreController extends BaseController
