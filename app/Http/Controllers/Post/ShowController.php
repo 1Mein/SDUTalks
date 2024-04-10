@@ -30,6 +30,8 @@ class ShowController extends Controller
             $post->time = Carbon::parse($post->created_at)->diffForHumans();
         }
 
+        $post->bestComment = null;
+
         return view('post.show', compact(['post','comments']));
     }
 }
