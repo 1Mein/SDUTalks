@@ -30,7 +30,7 @@ class PostsController extends Controller
 
 
             $post->time .= $time->diffForHumans();
-            $post->bestComment = $post->bestComment();
+            $post->bestComment = null;
         }
         return view('profile.posts', compact('posts'))->with('page', $currentPage);
     }

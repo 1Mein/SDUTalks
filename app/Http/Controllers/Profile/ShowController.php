@@ -26,7 +26,7 @@ class ShowController extends Controller
             }
 
             $post->time .= $time->diffForHumans();
-            $post->bestComment = $post->bestComment();
+            $post->bestComment = null;
         }
         $data = [
             'count' => $posts->count(),
