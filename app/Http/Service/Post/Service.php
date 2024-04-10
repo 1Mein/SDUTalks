@@ -61,6 +61,11 @@ class Service
             $like->save();
         }
 
+        if ($post->user()->value('id') === $user->id){
+            return $action;
+        }
+
+
         if ($action === 'like') {
             Notify::createNotify($post->user()->value('id'), 'post-like', '', $userId, $postId);
         } elseif ($action === 'undislike like') {
@@ -93,6 +98,10 @@ class Service
                 'is_like' => false,
             ]);
             $dislike->save();
+        }
+
+        if ($post->user()->value('id') === $user->id){
+            return $action;
         }
 
         if ($action === 'dislike') {

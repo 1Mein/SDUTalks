@@ -52,9 +52,20 @@ class Post extends Model
         return $this->hasMany(Comment::class)->get();
     }
 
+    public function commentsQuery()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function bestComment()
     {
-        return $this->comments()->sortByDesc('created_at')->first();
+        $bestComment = $this->commentsQuery()
+            ->withCount(['likes', 'dislikes'])
+            ->orderByRaw('(likes_count - dislikes_count) DESC') // Сортировка по рейтингу (лайкам минус дизлайки) в убывающем порядке
+            ->first(); // Получаем первый комментарий из отсортированного списка
+
+        // Возвращаем ID найденного комментария или null, если ничего не найдено
+        return $bestComment ? Comment::find($bestComment->id) : null;
     }
 
     public function userNotifies()

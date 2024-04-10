@@ -172,7 +172,75 @@
                     }
                 });
             });
+
+
+
+            $('.com-like-btn').on('click', function () {
+                var commentId = $(this).data('comment-id');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type: 'POST',
+                    url: '/comment/' + commentId + '/like',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function (response) {
+                        // Обновляем отображение лайков на странице
+                        var dif = response.likes - response.dislikes;
+                        var count = document.querySelector('.comlikes-count' + response.id);
+                        var likeButton = document.querySelector('#comforlike' + response.id);
+                        var dislikeButton = document.querySelector('#comfordislike' + response.id);
+
+
+                        count.classList.toggle('text-success-emphasis', dif > 0);
+                        count.classList.toggle('text-danger-emphasis', dif < 0);
+                        count.innerHTML = dif;
+
+                        likeButton.classList.toggle('btn-success');
+                        likeButton.classList.toggle('btn-outline-secondary');
+
+                        if (response.action === 'undislike like') {
+                            dislikeButton.classList.toggle('btn-danger');
+                            dislikeButton.classList.toggle('btn-outline-secondary');
+                        }
+                    }
+                });
+            });
+
+            $('.com-dislike-btn').on('click', function () {
+                var commentId = $(this).data('comment-id');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type: 'POST',
+                    url: '/comment/' + commentId + '/dislike',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function (response) {
+                        // Обновляем отображение дизлайков на странице
+                        var dif = response.likes - response.dislikes;
+                        var count = document.querySelector('.comlikes-count' + response.id);
+                        var likeButton = document.querySelector('#comforlike' + response.id);
+                        var dislikeButton = document.querySelector('#comfordislike' + response.id);
+
+
+                        count.classList.toggle('text-success-emphasis', dif > 0);
+                        count.classList.toggle('text-danger-emphasis', dif < 0);
+                        count.innerHTML = dif;
+
+                        dislikeButton.classList.toggle('btn-danger');
+                        dislikeButton.classList.toggle('btn-outline-secondary');
+
+                        if (response.action === 'unlike dislike') {
+                            likeButton.classList.toggle('btn-success');
+                            likeButton.classList.toggle('btn-outline-secondary');
+                        }
+                    }
+                });
+            });
         });
+
+
         $('.toggle-post').on('click', function () {
             var postId = $(this).data('post-id');
             var csrfToken = $('meta[name="csrf-token"]').attr('content');

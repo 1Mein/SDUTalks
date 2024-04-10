@@ -29,8 +29,6 @@ class ShowController extends Controller
         } else {
             $post->time = Carbon::parse($post->created_at)->diffForHumans();
         }
-        $post->bestComment = $post->bestComment();
-
 
         return view('post.show', compact(['post','comments']));
     }

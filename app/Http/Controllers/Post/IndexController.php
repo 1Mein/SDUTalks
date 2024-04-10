@@ -29,6 +29,7 @@ class IndexController extends Controller
             $post->bestComment = $post->bestComment();
         }
 
+
         return view('post.index', compact(['posts']));
     }
 }

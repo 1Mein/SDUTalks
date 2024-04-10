@@ -1,4 +1,4 @@
-<div class="d-block my-3 card shadow-sm p-0">
+<div class="d-block @if($post->bestComment) mt-3 @else my-3 @endif card shadow-sm p-0">
     <div class="card-header d-flex justify-content-between ps-2">
         <div>
             <img src="{{asset('storage/avatars/'.$post->user->avatar)}}" role="button" data-bs-toggle="modal"
@@ -110,7 +110,7 @@
                 </button>
             @endauth
             <p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Likes: {{$post->likes()->count()}} | Dislikes: {{$post->dislikes()->count()}}" data-bs-placement="top"
-               class="border border-dark-subtle ms-1 me-1 border-2 rounded p-0 m-0 px-1 likes-count{{$post->id}} @if($post->likes()->count() - $post->dislikes()->count()>0) text-success-emphasis @elseif($post->likes()->count() - $post->dislikes()->count()<0) text-danger-emphasis
+               class="ms-1 me-1 border-2 rounded p-0 m-0 px-1 likes-count{{$post->id}} @if($post->likes()->count() - $post->dislikes()->count()>0) text-success-emphasis @elseif($post->likes()->count() - $post->dislikes()->count()<0) text-danger-emphasis
         @endif">{{$post->likes()->count() - $post->dislikes()->count()}}</p>
 
             @auth

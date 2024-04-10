@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Comment;
 
 use App\Http\Controllers\Controller;
-use App\Http\Service\Post\Service;
+use App\Http\Service\Comment\Service;
 
 class BaseController extends Controller
 {

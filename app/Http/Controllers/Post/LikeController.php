@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Http\Controllers\Controller;
-use App\Models\Like;
 use App\Models\Post;
 
 class LikeController extends BaseController

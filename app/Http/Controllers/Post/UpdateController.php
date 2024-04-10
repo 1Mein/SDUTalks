@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Http\Controllers\Comment\BaseController;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;

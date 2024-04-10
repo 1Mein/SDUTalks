@@ -28,15 +28,18 @@ class StoreController extends Controller
 
         $comment = Comment::create($data);
 
-        if (isset($data['on_comment'])){
+        if (isset($data['on_comment'])) {
             $repliedComment = Comment::find($data['on_comment']);
-
-            Notify::createNotify($repliedComment->user_id,'replied-comment', '', $data['user_id'],$data['post_id'],$comment->id);
+            if ($repliedComment->user_id !== auth()->id()) {
+                Notify::createNotify($repliedComment->user_id, 'replied-comment', '', $data['user_id'], $data['post_id'], $comment->id);
+            }
         }
 
-        Notify::createNotify(Post::find($request->post)->user_id,'commented-post','',$data['user_id'], $data['post_id'], $comment->id);
+        $postAuthor = Post::find($request->post)->user_id;
+        if($postAuthor !== auth()->id()){
+            Notify::createNotify($postAuthor, 'commented-post', '', $data['user_id'], $data['post_id'], $comment->id);
+        }
 
-
-        return redirect()->route('posts.show',$request->post);
+        return redirect()->route('posts.show', $request->post);
     }
 }
