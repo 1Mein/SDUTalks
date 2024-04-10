@@ -26,7 +26,6 @@ class ShowController extends Controller
             }
 
             $post->time .= $time->diffForHumans();
-            $post->bestComment = null;
         }
         $data = [
             'count' => $posts->count(),
@@ -38,6 +37,10 @@ class ShowController extends Controller
             $data['dislikes']+=$post->dislikes->count();
         }
         $posts = $posts->paginate(10);
+
+        foreach ($posts as $post){
+             $post->bestComment = null;
+        }
         return view('profile.show',compact(['user','data','posts']));
     }
 }

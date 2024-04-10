@@ -21,7 +21,7 @@ class IndexController extends Controller
 
 
             $post->time .= $time->diffForHumans();
-            $post->bestComment = $post->bestComment();
+            $post->bestComment = null;
         }
         $data = [
             'likes' => 0,
