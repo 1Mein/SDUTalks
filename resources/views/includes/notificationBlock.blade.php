@@ -48,6 +48,24 @@
                     <a href="{{route('comment.show',$notify->on_comment)}}"
                        class="text-decoration-none">{{$notify->getTextComment($notify->on_comment)}}</a>
                 </div>
+            @elseif($notify->type === 'comment-like')
+                <div>
+                    <a href="{{route('show.profile',$notify->from_user)}}" class="text-decoration-none">
+                        {{$notify->getUsername($notify->from_user)}}
+                    </a>
+                    {{' liked your comment: '}}
+                    <a href="{{route('comment.show',$notify->on_comment)}}"
+                       class="text-decoration-none">{{$notify->getTextComment($notify->on_comment)}}</a>
+                </div>
+            @elseif($notify->type === 'comment-dislike')
+                <div>
+                    <a href="{{route('show.profile',$notify->from_user)}}" class="text-decoration-none">
+                        {{$notify->getUsername($notify->from_user)}}
+                    </a>
+                    {{' disliked your comment: '}}
+                    <a href="{{route('comment.show',$notify->on_comment)}}"
+                       class="text-decoration-none">{{$notify->getTextComment($notify->on_comment)}}</a>
+                </div>
             @endif
         </div>
         <div class="my-auto d-flex">

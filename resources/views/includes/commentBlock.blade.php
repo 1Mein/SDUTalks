@@ -61,7 +61,7 @@
                 <span class="visually-hidden">Button</span>
             </button>
         @endauth
-        <p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Likes: {{$post->likes()->count()}} | Dislikes: {{$post->dislikes()->count()}}" data-bs-placement="top"
+        <p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Likes: {{$comment->likes()->count()}} | Dislikes: {{$comment->dislikes()->count()}}" data-bs-placement="top"
            class="ms-1 me-1 border-2 rounded p-0 m-0 px-1 comlikes-count{{$comment->id}} @if($comment->likes()->count() - $comment->dislikes()->count()>0) text-success-emphasis @elseif($comment->likes()->count() - $comment->dislikes()->count()<0) text-danger-emphasis
         @endif">{{$comment->likes()->count() - $comment->dislikes()->count()}}</p>
 
