@@ -53,7 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Comment', 'prefix' => '/comme
     Route::post('/{comment}/like','LikeController@like')->middleware('auth')->name('comment.like');
     Route::post('/{comment}/dislike','LikeController@dislike')->middleware('auth')->name('comment.dislike');
     Route::post('/{post}','StoreController')->middleware('auth')->name('comment.store');
-    Route::get('/{comment}','ShowController')->middleware('auth')->name('comment.show');
+    Route::get('/{comment}','ShowController')->name('comment.show');
     Route::delete('/{comment}','DestroyController')->middleware('auth','comment.owner')->name('comment.destroy');
 });
 

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Subscribes extends Model
 {
     use HasFactory;
+
+    protected $table = 'subscribes';
+
+    protected $guarded = false;
+
+
 }

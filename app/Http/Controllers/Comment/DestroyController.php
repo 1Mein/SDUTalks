@@ -13,6 +13,7 @@ class DestroyController extends Controller
         $comment->delete();
         Notify::removeNotify('commented-post',$comment->user_id, $comment->post_id,$comment->id);
         Notify::removeNotify('replied-comment',$comment->user_id, $comment->post_id,$comment->id);
+        Notify::removeNotify('comment-like',$comment->user_id, $comment->post_id,$comment->id);
         return response()->json(['id' => $comment->id]);
     }
 }
