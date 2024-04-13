@@ -51,7 +51,7 @@
             <span class="text-white-50">04.04.2024</span>
         </div>
 
-        <p class="fs-5 m-0 mt-2 mb-1">Это то как я сделал Аноним мод. 5 это айди анонимного аккаунта. На хосте это 55.</p>
+        <p class="fs-5 m-0 mt-2 mb-1">Это то как я сделал Аноним мод. 55 это айди анонимного аккаунта.</p>
         <img src="{{asset('/images/anon1.png')}}" alt="screen" class="d-block mx-auto rounded-5">
         <div class="mt-5"></div>
 
