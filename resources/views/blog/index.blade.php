@@ -36,7 +36,7 @@
         <div class="text-center">
             <span class="text-white-50">13.04.2024</span>
         </div>
-        <p class="fs-5 m-0 mt-2 mb-1">Не давно создал свою компанию MeinOne в linkedIn и набрал разработчиков. Теперь у меня есть фронтендер, Django бэк, и UI/UX Designer.</p>
+        <p class="fs-5 m-0 mt-2 mb-1">Не давно создал свою компанию MeinOne в linkedIn и набрал разработчиков. Теперь у меня есть фронтендер, Django бэк, и UI/UX Designer. </p>
 
 
 
