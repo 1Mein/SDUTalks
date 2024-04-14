@@ -5,6 +5,21 @@
         <div class="col-5 card p-5">
             <p class="text-info fs-1 text-center"><b>Image</b></p>
             <img src="{{asset('storage/avatars/'.$user->avatar)}}" alt="" class="">
+            <div class="mt-5"></div>
+            <div class="ms-auto mt-auto">
+                @if($user->subscribedTo())
+                    @include('includes.unsubscribeButton')
+
+                    @if($user->notificationEnabled())
+                        @include('includes.enabledNotify')
+                    @else
+                        @include('includes.disabledNotify')
+                    @endif
+                @else
+                    @include('includes.subscribeButton')
+                @endif
+            </div>
+
         </div>
         <div class="col-5 card fs-3 p-5 pb-0">
             <p class="text-info fs-1 text-center"><b>Information</b></p>

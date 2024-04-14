@@ -9,11 +9,10 @@
             {{$posts->onEachSide(0)->links()}}
         </div>
 
-        @auth()
-            <div class="text-end">
-                <a class="btn btn-primary" href="{{route('posts.subscribed')}}">Subscribed Users Posts</a>
-            </div>
-        @endauth
+        <div class="text-end">
+            <a class="btn btn-primary" href="{{route('posts.index')}}">Back to Posts</a>
+        </div>
+
 
         @foreach($posts as $post)
             @include('includes.postCard')

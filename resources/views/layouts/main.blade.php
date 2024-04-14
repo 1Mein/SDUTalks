@@ -36,6 +36,11 @@
                 @auth
                     <hr>
                     <li>
+                        <a href="{{route('index.subscribe')}}" class="nav-link text-white @yield('index.subscribe') d-flex justify-content-between">
+                            Subscribes
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{route('notifies.index')}}" class="nav-link text-white @yield('index.notification') d-flex justify-content-between">
                             Notifications
                             @php
@@ -391,8 +396,138 @@
             localStorage.removeItem('replied-comment');
         }
 
+        $(document).on('click','.unsubscribe', function(){
+            let userId = $(this).data('user-id');
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+            let button = $(this);
+            let container = button.parent();
 
+            button.addClass('disable');
+            $.ajax({
+                type: 'DELETE',
+                url: '/subscribe/' + userId,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(typeof response.error !== 'undefined'){
+                        console.log(response.error);
+                        return;
+                    }
 
+                    container.find('.notify').remove();
+
+                    button.toggleClass('btn-secondary btn-primary');
+                    button.toggleClass('unsubscribe subscribe');
+                    button.text('Subscribe');
+                },
+                error: function(error){
+                    console.log(error);
+                },
+                complete: function() {
+                    button.removeClass('disable');
+                }
+            });
+        })
+
+        $(document).on('click','.subscribe', function(){
+            let userId = $(this).data('user-id');
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+            let button = $(this);
+            let container = button.parent();
+
+            button.addClass('disable');
+            $.ajax({
+                type: 'POST',
+                url: '/subscribe/' + userId,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(typeof response.error !== 'undefined'){
+                        console.log(response.error);
+                        return;
+                    }
+
+                    container.append('<button class="btn btn-warning notify notify-on" data-user-id="'+response.id+'">' +
+                    '<i class="bi bi-bell"></i> ' +
+                    '</button>')
+                    button.toggleClass('btn-secondary btn-primary');
+                    button.toggleClass('unsubscribe subscribe');
+                    button.text('You are subscribed');
+                },
+                error: function(error){
+                    console.log(error);
+                },
+                complete: function() {
+                    button.removeClass('disable');
+                }
+            });
+        })
+
+        $(document).on('click','.notify-on', function(){
+            let userId = $(this).data('user-id');
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+            let button = $(this);
+
+            button.addClass('disable');
+            $.ajax({
+                type: 'POST',
+                url: '/subscribe/' + userId + '/notify',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(typeof response.error !== 'undefined'){
+                        console.log(response.error);
+                        return;
+                    }
+
+                    button.toggleClass('notify-off notify-on');
+                    button.find('i').toggleClass('bi-bell bi-bell-slash')
+
+                    button.attr('title', 'Turn off notifications');
+                },
+                error: function(error){
+                    console.log(error);
+                },
+                complete: function() {
+                    button.removeClass('disable');
+                }
+            });
+        })
+
+        $(document).on('click','.notify-off', function(){
+            let userId = $(this).data('user-id');
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+            let button = $(this);
+
+            button.addClass('disable');
+            $.ajax({
+                type: 'POST',
+                url: '/subscribe/' + userId + '/notify',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    if(typeof response.error !== 'undefined'){
+                        console.log(response.error);
+                        return;
+                    }
+
+                    button.toggleClass('notify-off notify-on');
+                    button.find('i').toggleClass('bi-bell bi-bell-slash')
+
+                    button.attr('title', 'Turn on notifications');
+                },
+                error: function(error){
+                    console.log(error);
+                },
+                complete: function() {
+                    button.removeClass('disable');
+                }
+            });
+        })
 
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))

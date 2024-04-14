@@ -33,6 +33,9 @@ class Notify extends Model
         if (strlen($text) >= 16) {
             $suffix = '...';
         }
+        elseif (strlen($text) == 0){
+            $text = 'image';
+        }
 
         return mb_substr($text, 0, 16, 'UTF-8') . $suffix;
     }

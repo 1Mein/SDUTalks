@@ -68,13 +68,46 @@ class User extends Authenticatable
     //comments
     public function comments()
     {
-        return $this->hasMany(Comment::class)->get();;
+        return $this->hasMany(Comment::class)->get();
     }
-
-
 
 
     public function notifies(){
         return $this->BelongsToMany(Notify::class, 'user_notifies', 'user_id', 'notify_id');
+    }
+
+
+    public function subscribes(){
+        return $this->hasMany(Subscribes::class,'from_user_id');
+    }
+
+    public function subscribers(){
+        return $this->hasMany(Subscribes::class,'to_user_id');
+    }
+
+    public function subscribesUsers(){
+        $subscribes = $this->subscribes()->pluck('to_user_id')->toArray();
+        $users = User::whereIn('id', $subscribes)->get();
+        return $users;
+    }
+
+    public function subscribersNotifiedUsers(){
+        $subscribers = $this->subscribers()->where('is_notify',true)->pluck('from_user_id')->toArray();
+        $users = User::whereIn('id', $subscribers)->get();
+        return $users;
+    }
+
+
+    public function subscribedTo():bool
+    {
+        return (bool)Subscribes::where('from_user_id', auth()->id())->where('to_user_id',$this->id)->count();
+    }
+
+    public function notificationEnabled():bool
+    {
+        return (bool)Subscribes::where('from_user_id', auth()->id())
+            ->where('to_user_id',$this->id)
+            ->where('is_notify',true)
+            ->count();
     }
 }

@@ -13,5 +13,10 @@ class Subscribes extends Model
 
     protected $guarded = false;
 
-
+    public static function deleteSubscribe($from_user_id, $to_user_id)
+    {
+        return Subscribes::where('from_user_id', $from_user_id)
+            ->where('to_user_id', $to_user_id)
+            ->delete();
+    }
 }

@@ -11,7 +11,12 @@ class ShowController extends Controller
 {
     public function __invoke(User $user)
     {
-//        $posts = $user->posts()->where('is_published',1)->orderBy('created_at', 'desc')->paginate(10);
+        if($user->id === auth()->id()){
+            return redirect()->route('index.profile');
+        }
+
+
+
         $posts = $user
             ->posts()
             ->where('is_published',1)
@@ -41,6 +46,7 @@ class ShowController extends Controller
         foreach ($posts as $post){
              $post->bestComment = null;
         }
+
         return view('profile.show',compact(['user','data','posts']));
     }
 }

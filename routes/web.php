@@ -39,6 +39,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Post', 'prefix' => 'posts'], 
     Route::post('/{post}/like',[LikeController::class,'like'])->middleware('auth')->name('posts.like');
     Route::post('/{post}/dislike',[LikeController::class,'dislike'])->middleware('auth')->name('posts.dislike');
     Route::get('', 'IndexController')->name('posts.index');
+    Route::get('/subscribed', 'SubscribedController')->middleware('auth')->name('posts.subscribed');
     Route::get('/create', 'CreateController')->name('posts.create');
     Route::post('', 'StoreController')->middleware('auth')->name('posts.store');
     Route::get('/{post}', 'ShowController')->name('posts.show');
@@ -73,4 +74,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Blog', 'prefix' => '/blog'],f
 Route::group(['namespace' => 'App\Http\Controllers\Notify', 'prefix' => '/notifies'], function () {
     Route::get('', 'IndexController')->middleware('auth')->name('notifies.index');
     Route::delete('/{notify}', 'DestroyController')->middleware('auth','notify.owner')->name('notifies.destroy');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers\Subscribe', 'prefix' => '/subscribe', 'middleware' => ['auth']],function () {
+    Route::get('', 'IndexController')->name('index.subscribe');
+    Route::delete('/{user}', 'DestroyController')->name('destroy.subscribe');
+    Route::post('/{user}', 'StoreController')->name('store.subscribe');
+    Route::post('/{user}/notify','NotifyToggleController')->middleware('subscribed')->name('notify.toggle.subscribe');
 });

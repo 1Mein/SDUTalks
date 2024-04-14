@@ -20,7 +20,7 @@ class Service
                 $data['user_id'] = 55; //anon account
                 unset($data['is_anonymous']);
             } else {
-                $data['user_id'] = auth()->user()->id;
+                $data['user_id'] = auth()->id();
             }
 
             if (isset($data['image'])) {
@@ -31,8 +31,9 @@ class Service
 
                 $data['image'] = $filename;
             }
-            Post::create($data);
+            $post = Post::create($data);
             DB::commit();
+            return $post;
         } catch (\Exception $e){
             DB::rollBack();
             abort(400);
