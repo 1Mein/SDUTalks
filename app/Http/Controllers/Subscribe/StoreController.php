@@ -15,6 +15,10 @@ class StoreController extends Controller
 
         $authUser = auth()->user();
 
+        if ($authUser->id == $user->id){
+            return response()->json(['error' => '405']);
+        }
+
         Subscribes::create(['from_user_id' => $authUser->id,
                             'to_user_id' => $user->id]);
 
