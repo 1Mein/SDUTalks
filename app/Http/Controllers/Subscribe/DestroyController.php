@@ -13,7 +13,7 @@ class DestroyController extends Controller
 {
     public function __invoke(User $user)
     {
-        Subscribes::deleteSubscribe(auth()-id(), $user->id);
+        Subscribes::deleteSubscribe(auth()->id(), $user->id);
 
         return response()->json(['id' => $user->id]);
     }

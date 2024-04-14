@@ -15,12 +15,12 @@ class ShowController extends Controller
             return redirect()->route('index.profile');
         }
 
-
-
         $posts = $user
             ->posts()
             ->where('is_published',1)
             ->orderBy('created_at', 'desc');
+
+
         foreach ($posts as $post){
             $post->time = '';
             if ($post->updated_at != $post->created_at) {

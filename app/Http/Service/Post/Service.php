@@ -53,7 +53,7 @@ class Service
             $rel->update(['is_like' => true]);
             $action = 'undislike like';
         } else {
-            $action = $action . 'like';
+            $action = 'like';
             $like = new Like([
                 'user_id' => $userId,
                 'post_id' => $postId,

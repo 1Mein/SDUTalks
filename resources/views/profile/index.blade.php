@@ -39,6 +39,12 @@
                 <p>Dislikes:</p>
                 <p class="text-break  @if($data['dislikes'] != 0) text-danger-emphasis @endif">{{$data['dislikes']}}</p>
             </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <p>Subscribers:</p>
+                <p class="text-break">{{auth()->user()->subscribers()->count()}}</p>
+            </div>
+
 
 
             <div class="text-muted fs-5 ms-auto mt-5">
