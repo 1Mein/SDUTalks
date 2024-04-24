@@ -16,8 +16,9 @@ class IndexController extends Controller
 
         $posts = Post::where('is_published', 1)->orderBy('created_at', 'desc')->paginate(10);
         foreach ($posts as $post) {
-            $post->bestComment = $post->bestComment();
+            $post->bestComment = $post->bestCommentFunc();
         }
+
 
         return view('post.index', compact(['posts']));
     }

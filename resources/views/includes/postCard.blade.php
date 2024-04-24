@@ -1,9 +1,8 @@
-@if (!property_exists($post, 'bestComment'))
-    @php
+@php
+    if(!isset($post->bestComment)){
         $post->bestComment = null;
-    @endphp
-@endif
-
+    };
+@endphp
 
 
 <div class="d-block @if($post->bestComment) mt-3 @else my-3 @endif card shadow-sm p-0">

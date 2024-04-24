@@ -59,7 +59,7 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function bestComment(): Comment|HasMany|null
+    public function bestCommentFunc(): Comment|HasMany|null
     {
         $bestComment = $this->commentsQuery()
             ->withCount(['likes', 'dislikes'])
@@ -80,5 +80,15 @@ class Post extends Model
         $notifiesIds = $this->hasMany(Notify::class, 'on_post', 'id')->pluck('id');
 
         return UserNotify::whereIn('notify_id', $notifiesIds)->get();
+    }
+
+
+    protected static function booted()
+    {
+        static::deleting(function ($post) {
+            $post->userNotifies()->each(function ($notify) {
+                $notify->delete();
+            });
+        });
     }
 }
