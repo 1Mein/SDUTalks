@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 //use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -47,17 +49,17 @@ class Post extends Model
     }
 
     //comments
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->hasMany(Comment::class)->get();
     }
 
-    public function commentsQuery()
+    public function commentsQuery(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
-    public function bestComment()
+    public function bestComment(): Comment|HasMany|null
     {
         $bestComment = $this->commentsQuery()
             ->withCount(['likes', 'dislikes'])
@@ -65,9 +67,8 @@ class Post extends Model
             ->first();
 
         if ($bestComment){
-            $comment = Comment::find($bestComment->id);
-            if($comment->likes->count() - $comment->dislikes()->count() > 0){
-                return $comment;
+            if($bestComment->likes_count - $bestComment->dislikes_count > 0){
+                return $bestComment;
             }
         }
 

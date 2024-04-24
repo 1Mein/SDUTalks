@@ -1,9 +1,9 @@
 @extends('layouts.main')
-@section('posts.create')
-    active
-@endsection
+{{--@section('posts.create')--}}
+{{--    active--}}
+{{--@endsection--}}
 @section('default')
-    <p class="h1 text-center mb-5 mt-5 text-info"> Create your own post </p>
+    <p class="h1 text-center mb-5 mt-5 text-info"> Edit your post </p>
     <form action="{{route('posts.update',$post->id)}}" method="post" class="w-50 m-auto text-white"
           enctype="multipart/form-data">
         @csrf
@@ -52,6 +52,11 @@
                             <source src="{{asset('storage/images/'.$post->image)}}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
+                    @elseif (in_array($extension, ['mp3','wav','ogg']))
+                        <audio class="mt-1 mx-2 w-50" controls>
+                            <source src="{{asset('storage/images/'.$post->image)}}" type="audio/mp3">
+                            Your browser does not support the audio tag.
+                        </audio>
                     @endif
                     <a type="submit" class="delete-image text-white" data-post-id="{{$post->id}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"

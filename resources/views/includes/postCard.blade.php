@@ -1,3 +1,11 @@
+@if (!property_exists($post, 'bestComment'))
+    @php
+        $post->bestComment = null;
+    @endphp
+@endif
+
+
+
 <div class="d-block @if($post->bestComment) mt-3 @else my-3 @endif card shadow-sm p-0">
     <div class="card-header d-flex justify-content-between ps-2">
         <div>
@@ -12,7 +20,8 @@
                 </div>
             </div>
 
-            <a id="avatarPost" class="m-0 text-white text-break my-auto me-2" href="{{route('show.profile',$post->user)}}"
+            <a id="avatarPost" class="m-0 text-white text-break my-auto me-2"
+               href="{{route('show.profile',$post->user)}}"
                style="text-decoration: none">{{$post->user->name}}</a>
         </div>
         @auth()
@@ -64,36 +73,41 @@
         @endauth
         <p class="m-0 my-auto">{{$post->time}}</p>
     </div>
-{{--    <a href="{{route('posts.show',$post->id)}}" class="text-white" style="text-decoration:none">--}}
-        <div class="card-body text-white"> {{--text-center--}}
-            @if($post->title)
-                <b class="h5 text-break">{{$post->title}}</b>
-            @endif
-            @if($post->content)
+    {{--    <a href="{{route('posts.show',$post->id)}}" class="text-white" style="text-decoration:none">--}}
+    <div class="card-body text-white"> {{--text-center--}}
+        @if($post->title)
+            <b class="h5 text-break">{{$post->title}}</b>
+        @endif
+        @if($post->content)
             <div class="m-0" style="white-space: pre-wrap;">{{$post->content}}</div>
-            @endif
-            @if($post->image)
-                @php
-                    $extension = mb_strtolower(pathinfo($post->image, PATHINFO_EXTENSION),'UTF-8');
-                @endphp
+        @endif
+        @if($post->image)
+            @php
+                $extension = mb_strtolower(pathinfo($post->image, PATHINFO_EXTENSION),'UTF-8');
+            @endphp
 
-                @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg']))
-                    <div class="p-1">
-                        {{-- card-img-top --}}
-                        <img src="{{asset('storage/images/'.$post->image)}}"
-                             class="img-fluid rounded-3 mx-auto d-block"
-                             style="min-height:100px; max-height: 300px;" alt="...">
+            @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'svg']))
+                <div class="p-1">
+                    {{-- card-img-top --}}
+                    <img src="{{asset('storage/images/'.$post->image)}}"
+                         class="img-fluid rounded-3 mx-auto d-block"
+                         style="min-height:100px; max-height: 300px;" alt="...">
 
-                    </div>
-                @elseif (in_array($extension, ['mp4', 'avi', 'mov', 'wmv']))
-                    <video class="mx-auto d-block" width="640" height="360" controls>
-                        <source src="{{asset('storage/images/'.$post->image)}}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                @endif
+                </div>
+            @elseif (in_array($extension, ['mp4', 'avi', 'mov', 'wmv']))
+                <video class="mx-auto d-block" width="640" height="360" controls>
+                    <source src="{{asset('storage/images/'.$post->image)}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            @elseif (in_array($extension, ['mp3','wav','ogg']))
+                <audio class="mx-auto d-block" style="width: 60vh" controls>
+                    <source src="{{asset('storage/images/'.$post->image)}}" type="audio/mp3">
+                    Your browser does not support the audio tag.
+                </audio>
             @endif
-        </div>
-{{--    </a>--}}
+        @endif
+    </div>
+    {{--    </a>--}}
 
     <div class="card-footer d-flex justify-content-between">
         <div class="d-flex justify-content-start align-items-center">
@@ -109,7 +123,9 @@
                     <span class="visually-hidden">Button</span>
                 </button>
             @endauth
-            <p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Likes: {{$post->likes()->count()}} | Dislikes: {{$post->dislikes()->count()}}" data-bs-placement="top"
+            <p tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus"
+               data-bs-content="Likes: {{$post->likes()->count()}} | Dislikes: {{$post->dislikes()->count()}}"
+               data-bs-placement="top"
                class="ms-1 me-1 border-2 rounded p-0 m-0 px-1 likes-count{{$post->id}} @if($post->likes()->count() - $post->dislikes()->count()>0) text-success-emphasis @elseif($post->likes()->count() - $post->dislikes()->count()<0) text-danger-emphasis
         @endif">{{$post->likes()->count() - $post->dislikes()->count()}}</p>
 

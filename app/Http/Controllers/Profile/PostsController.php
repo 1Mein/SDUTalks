@@ -13,25 +13,9 @@ class PostsController extends Controller
 {
     public function __invoke()
     {
-        $currentPage = Request::query('page',1);
-
-
         $user = auth()->user();
-        $posts = Post::where('user_id',$user->id)->orderBy('created_at', 'desc')->paginate(10);
-        foreach ($posts as $post) {
-            $post['author'] = $user->name;
-            $post->time = '';
-            if ($post->updated_at != $post->created_at) {
-                $post->time .= 'Edited ';
-                $time = Carbon::parse($post->updated_at);
-            } else {
-                $time = Carbon::parse($post->created_at);
-            }
+        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(10);
 
-
-            $post->time .= $time->diffForHumans();
-            $post->bestComment = null;
-        }
-        return view('profile.posts', compact('posts'))->with('page', $currentPage);
+        return view('profile.posts', compact('posts'));
     }
 }

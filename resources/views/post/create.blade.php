@@ -25,7 +25,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label fs-5 d-flex justify-content-between">Image or Video<p
+            <label for="image" class="form-label fs-5 d-flex justify-content-between">Image/Video/Audio<p
                     class="form-text p-0 m-0">Max 25 MB</p></label>
             <input class="form-control" type="file" id="image" name="image" value="{{old("image")}}">
             @error('image')

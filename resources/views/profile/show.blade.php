@@ -2,7 +2,7 @@
 @section('default')
     <p class="h1 text-center mb-5 text-info mt-5"> Profile </p>
     <div class="row justify-content-center mb-5">
-        <div class="col-5 card p-5">
+        <div class="col-5 card p-5 me-1">
             <p class="text-info fs-1 text-center"><b>Image</b></p>
             <img src="{{asset('storage/avatars/'.$user->avatar)}}" alt="" class="">
             <div class="mt-5"></div>
@@ -21,7 +21,7 @@
             </div>
 
         </div>
-        <div class="col-5 card fs-3 p-5 pb-0">
+        <div class="col-5 card fs-3 p-5 pb-0 ms-1">
             <p class="text-info fs-1 text-center"><b>Information</b></p>
             <div class="d-flex justify-content-between">
                 <p>Username:</p>

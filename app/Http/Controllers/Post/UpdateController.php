@@ -33,12 +33,13 @@ class UpdateController extends BaseController
             else if(!isset($data['content'])){
                 $data['content'] = 'empty';
             }
-
+            unset($post->time);
             $post->update($data);
             DB::commit();
             return redirect()->route('posts.profile');
         } catch (\Exception $e){
             DB::rollBack();
+            dd($e);
             abort(400);
         }
 

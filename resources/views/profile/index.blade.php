@@ -5,7 +5,7 @@
 @section('default')
     <p class="h1 text-center mb-5 text-info mt-5"> My profile </p>
     <div class="row justify-content-center mb-5">
-        <div class="col-5 card p-5">
+        <div class="col-5 card p-5 me-1">
             <p class="text-info fs-1 text-center"><b>Image</b></p>
             <img src="{{asset('storage/avatars/'.auth()->user()->avatar)}}" alt="" class="">
             <p class="m-0 mt-3 fs-3">Change your image</p>
@@ -18,7 +18,7 @@
                 @error('avatar'){{$message}}@enderror
             </form>
         </div>
-        <div class="col-5 card fs-3 p-5 pb-0">
+        <div class="col-5 card fs-3 p-5 pb-0 ms-1">
             <p class="text-info fs-1 text-center"><b>Information</b></p>
             <div class="d-flex justify-content-between">
                 <p>Username:</p>

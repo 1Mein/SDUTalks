@@ -19,6 +19,7 @@ class DestroyImageController extends Controller
                 if (!$post->content) {
                     $post->content = 'empty';
                 }
+                unset($post->time);
                 $post->save();
             }
 

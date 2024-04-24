@@ -9,28 +9,16 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $posts = auth()->user()->posts;
-        foreach ($posts as $post){
-            $post->time = '';
-            if ($post->updated_at != $post->created_at) {
-                $post->time .= 'Edited ';
-                $time = Carbon::parse($post->updated_at);
-            } else {
-                $time = Carbon::parse($post->created_at);
-            }
+        $postsQuery = auth()->user()->posts();
 
 
-            $post->time .= $time->diffForHumans();
-            $post->bestComment = null;
-        }
         $data = [
-            'likes' => 0,
-            'dislikes' => 0
+            'likes' => $postsQuery->withCount('likes')->get()->sum('likes_count'),
+            'dislikes' => $postsQuery->withCount('dislikes')->get()->sum('dislikes_count')
         ];
-        foreach ($posts as $post){
-            $data['likes']+=$post->likes->count();
-            $data['dislikes']+=$post->dislikes->count();
-        }
+
+        $posts = $postsQuery->get();
+
         return view('profile.index',compact(['posts','data']));
     }
 }

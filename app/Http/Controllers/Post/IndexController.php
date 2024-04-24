@@ -16,15 +16,8 @@ class IndexController extends Controller
 
         $posts = Post::where('is_published', 1)->orderBy('created_at', 'desc')->paginate(10);
         foreach ($posts as $post) {
-            if ($post->updated_at != $post->created_at) {
-                $post->time = 'Edited '.Carbon::parse($post->updated_at)->diffForHumans();
-            } else {
-                $post->time = Carbon::parse($post->created_at)->diffForHumans();
-            }
-
             $post->bestComment = $post->bestComment();
         }
-
 
         return view('post.index', compact(['posts']));
     }

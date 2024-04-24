@@ -34,35 +34,53 @@ class Service
             $post = Post::create($data);
             DB::commit();
             return $post;
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             abort(400);
         }
     }
 
-    public function setLike(Post $post, $user, int $postId, int $userId): string
+
+    public function commitLike($type,$post,$user,$postId,$userId): string
     {
-        $action = '';
+
         if ($post->liked($user)) {
             $rel = Like::where('post_id', $postId)->where('user_id', $userId);
-            $rel->delete();
-            $action = 'unlike';
+
+            if ($type === 'like') {
+                $rel->delete();
+                $action = 'unlike';
+            } else {
+                $rel->update(['is_like' => false]);
+                $action = 'unlike dislike';
+            }
         } else if ($post->disliked($user)) {
-            //undislike
             $rel = Like::where('post_id', $postId)->where('user_id', $userId);
-            $rel->update(['is_like' => true]);
-            $action = 'undislike like';
+
+            if ($type === 'like') {
+                $rel->update(['is_like' => true]);
+                $action = 'undislike like';
+            } else {
+                $rel->delete();
+                $action = 'undislike';
+            }
+
         } else {
-            $action = 'like';
-            $like = new Like([
+            Like::create([
                 'user_id' => $userId,
                 'post_id' => $postId,
-                'is_like' => true,
+                'is_like' => $type==='like',
             ]);
-            $like->save();
+            $action = $type==='like'?'':'un'.'like';
         }
+        return $action;
+    }
 
-        if ($post->user()->value('id') === $user->id){
+    public function setLike(Post $post, $user, int $postId, int $userId): string
+    {
+        $action = $this->commitLike('like',$post,$user,$postId,$userId);
+
+        if ($post->user()->value('id') === $user->id) {
             return $action;
         }
 
@@ -81,27 +99,9 @@ class Service
 
     public function setDislike(Post $post, $user, int $postId, int $userId): string
     {
-        $action = '';
-        if ($post->disliked($user)) {
-            $rel = Like::where('post_id', $postId)->where('user_id', $userId);
-            $rel->delete();
-            $action = 'undislike';
-        } else if ($post->liked($user)) {
-            //unlike
-            $rel = Like::where('post_id', $postId)->where('user_id', $userId);
-            $rel->update(['is_like' => false]);
-            $action = 'unlike dislike';
-        } else {
-            $action = $action . 'dislike';
-            $dislike = new Like([
-                'user_id' => $userId,
-                'post_id' => $postId,
-                'is_like' => false,
-            ]);
-            $dislike->save();
-        }
+        $action = $this->commitLike('dislike',$post,$user,$postId,$userId);
 
-        if ($post->user()->value('id') === $user->id){
+        if ($post->user()->value('id') === $user->id) {
             return $action;
         }
 

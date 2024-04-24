@@ -15,37 +15,24 @@ class ShowController extends Controller
             return redirect()->route('index.profile');
         }
 
-        $posts = $user
+        $postsQuery = $user
             ->posts()
             ->where('is_published',1)
             ->orderBy('created_at', 'desc');
 
+        $count = $postsQuery->count();
 
-        foreach ($posts as $post){
-            $post->time = '';
-            if ($post->updated_at != $post->created_at) {
-                $post->time .= 'Edited ';
-                $time = Carbon::parse($post->updated_at);
-            } else {
-                $time = Carbon::parse($post->created_at);
-            }
+        $likes = $postsQuery->withCount('likes')->get()->sum('likes_count');
+        $dislikes = $postsQuery->withCount('dislikes')->get()->sum('dislikes_count');
 
-            $post->time .= $time->diffForHumans();
-        }
+        $posts = $postsQuery->paginate(10);
+
         $data = [
-            'count' => $posts->count(),
-            'likes' => 0,
-            'dislikes' => 0
+            'count' => $count,
+            'likes' => $likes,
+            'dislikes' => $dislikes
         ];
-        foreach ($posts->get() as $post){
-            $data['likes']+=$post->likes->count();
-            $data['dislikes']+=$post->dislikes->count();
-        }
-        $posts = $posts->paginate(10);
 
-        foreach ($posts as $post){
-             $post->bestComment = null;
-        }
 
         return view('profile.show',compact(['user','data','posts']));
     }

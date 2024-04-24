@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'nullable|string|max:80',
             'content' => 'nullable|string|max:80000',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mov,wmv|max:25600',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mov,wmv,mp3,wav,ogg|max:25600',
             'is_published' => 'boolean',
             'is_anonymous' => 'string',
         ];

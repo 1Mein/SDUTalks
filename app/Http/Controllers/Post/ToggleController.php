@@ -12,10 +12,10 @@ class ToggleController extends Controller
     public function __invoke(Post $post)
     {
         $post->is_published = !$post->is_published;
+        unset($post->time);
         $post->save();
 
-//        $currentPage = Request::query('page',1);
+
         return response()->json(['success' => true,'is_published' => $post->is_published]);
-//        return redirect()->route('posts.profile')->with('page', $currentPage);
     }
 }
