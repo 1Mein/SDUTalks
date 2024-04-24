@@ -62,10 +62,16 @@ class Post extends Model
         $bestComment = $this->commentsQuery()
             ->withCount(['likes', 'dislikes'])
             ->orderByRaw('(likes_count - dislikes_count) DESC') // Сортировка по рейтингу (лайкам минус дизлайки) в убывающем порядке
-            ->first(); // Получаем первый комментарий из отсортированного списка
+            ->first();
 
-        // Возвращаем ID найденного комментария или null, если ничего не найдено
-        return $bestComment ? Comment::find($bestComment->id) : null;
+        if ($bestComment){
+            $comment = Comment::find($bestComment->id);
+            if($comment->likes->count() - $comment->dislikes()->count() > 0){
+                return $comment;
+            }
+        }
+
+        return null;
     }
 
     public function userNotifies()
@@ -73,16 +79,5 @@ class Post extends Model
         $notifiesIds = $this->hasMany(Notify::class, 'on_post', 'id')->pluck('id');
 
         return UserNotify::whereIn('notify_id', $notifiesIds)->get();
-    }
-
-
-
-    protected static function booted()
-    {
-        static::deleting(function ($post) {
-            $post->userNotifies()->each(function ($notify) {
-                $notify->delete();
-            });
-        });
     }
 }

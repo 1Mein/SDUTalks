@@ -25,7 +25,7 @@
                 <p class="text-break">{{auth()->user()->name}}</p>
             </div>
             <hr>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between ">
                 <p>Posts:</p>
                 <p class="text-break">{{$posts->count()}}</p>
             </div>

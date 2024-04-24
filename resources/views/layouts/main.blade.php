@@ -53,11 +53,11 @@
                             @endif
                         </a>
                     </li>
-{{--                    <li>--}}
-{{--                        <a href="{{route('posts.profile')}}" class="nav-link text-white @yield('posts.profile')">--}}
-{{--                            Manage your posts--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a href="{{route('posts.profile')}}" class="nav-link text-white @yield('posts.profile')">
+                            My posts
+                        </a>
+                    </li>
                     <li>
                         <a href="{{route('index.profile')}}" class="nav-link text-white @yield('index.profile')">
                             Your profile
