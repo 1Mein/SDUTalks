@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-12 d-md-none">
-            <nav class="navbar navbar-dark bg-dark">
+            <nav class="navbar navbar-dark bg-dark fixed-top">
                 <div class="container-fluid">
                     <a href="{{route('posts.index')}}" class="navbar-brand">SDU Talks</a>
 
