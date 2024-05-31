@@ -1,7 +1,7 @@
 @php
     if(!isset($post->bestComment)){
         $post->bestComment = null;
-    };
+    }
 @endphp
 
 
@@ -94,12 +94,12 @@
 
                 </div>
             @elseif (in_array($extension, ['mp4', 'avi', 'mov', 'wmv']))
-                <video class="mx-auto d-block" width="640" height="360" controls>
+                <video class="mx-auto d-block img-fluid"  width="640" height="360" controls>
                     <source src="{{asset('storage/images/'.$post->image)}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             @elseif (in_array($extension, ['mp3','wav','ogg']))
-                <audio class="mx-auto d-block" style="width: 60vh" controls>
+                <audio class="mx-auto d-block" style="width: 80%" controls>
                     <source src="{{asset('storage/images/'.$post->image)}}" type="audio/mp3">
                     Your browser does not support the audio tag.
                 </audio>

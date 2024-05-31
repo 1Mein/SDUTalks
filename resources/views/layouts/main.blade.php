@@ -1,107 +1,45 @@
 @extends('layouts.header')
+
 @section('main')
     <body>
     <main class="row m-0">
-        <div class="col-2 text-bg-dark p-4">
+        <div class="col-md-2 text-bg-dark p-4 d-none d-md-block">
             <a href="{{route('posts.index')}}" class="d-block text-center mb-3 text-decoration-none logotype">
-                {{--                <span class="fs-2 text-info">SduTalks!</span>--}}
                 <img class="w-75" src="{{ asset('images/logo.png') }}" alt="">
             </a>
             <hr>
-            <ul class="nav nav-pills flex-column">
-                <li>
-                    <a href="{{route('posts.index')}}" class="nav-link text-white @yield('posts.index')"
-                       aria-current="page">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('posts.create')}}" class="nav-link text-white @yield('posts.create')">
-                        Create post
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-white">
-                        Search user
-                    </a>
-                </li>
-
-                <hr>
-                <li>
-                    <a href="{{route('index.blog')}}" class="nav-link text-white @yield('blog.index')">
-                        MeinOne's blog
-                    </a>
-                </li>
-
-                @auth
-                    <hr>
-                    <li>
-                        <a href="{{route('index.subscribe')}}" class="nav-link text-white @yield('index.subscribe') d-flex justify-content-between">
-                            Subscribes
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('notifies.index')}}" class="nav-link text-white @yield('index.notification') d-flex justify-content-between">
-                            Notifications
-                            @php
-                                $notificationCount = \App\Models\UserNotify::countNotifications(auth()->id());
-                            @endphp
-                            @if($notificationCount > 0)
-                                <div class="bg-danger rounded-5 px-2" style="font-size: 15px">
-                                    {{ $notificationCount > 9 ? '9+' : $notificationCount }}
-                                </div>
-                            @endif
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('posts.profile')}}" class="nav-link text-white @yield('posts.profile')">
-                            My posts
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('index.profile')}}" class="nav-link text-white @yield('index.profile')">
-                            Your profile
-                        </a>
-                    </li>
-                @endauth
+            <ul class="navbar-nav justify-content-end nav-pills flex-column">
+                @include('includes.asideLinks')
             </ul>
-            <hr>
-
-            <div class="user-info d-flex justify-content-between">
-                @auth
-                    <div>
-                        <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" role="button"
-                             data-bs-toggle="modal" data-bs-target="#avatar" alt="" width="32" height="32"
-                             class="rounded-circle me-2 avatar">
-                        <div class="modal fade" id="avatar" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" alt=""
-                                         class="p-3">
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <a href="{{route('index.profile')}}" class="text-white fs-6"
-                           style="text-decoration: none"><strong>{{auth()->user()->name}}</strong></a>
-                    </div>
-                    <form action="{{route('logout')}}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-danger m-0 pt-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
-                                <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
-                            </svg></button>
-                    </form>
-
-                @else
-                    <div class="text-center">
-                        <a class="btn btn-primary" href="{{route('login.create')}}" role="button">Log in</a>
-                        <a class="btn btn-primary ms-2" href="{{route('reg.create')}}" role="button">Register</a>
-                    </div>
-                @endif</div>
         </div>
-        <div class="col-10">
+
+        <div class="col-12 d-md-none">
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a href="{{route('posts.index')}}" class="navbar-brand">SDU Talks</a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-end w-75" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <a href="{{route('posts.index')}}" class="offcanvas-title navbar-brand mx-auto" id="offcanvasNavbarLabel">
+                            <img src="{{ asset('images/logo.png') }}" alt="" class="d-inline-block align-text-top" width="90" height="90">
+                        </a>
+                        <hr class="mx-3">
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end nav-pills flex-column">
+                                @include('includes.asideLinks')
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-md-10">
             @yield('default')
         </div>
     </main>
