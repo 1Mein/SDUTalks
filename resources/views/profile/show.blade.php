@@ -1,29 +1,31 @@
 @extends('layouts.main')
 @section('default')
     <p class="h1 text-center mb-5 text-info mt-5"> Profile </p>
-    <div class="row mb-5">
-        <div class="col-md-6 me-1">
-            <div class="card p-5 ">
-            <p class="text-info fs-1 text-center"><b>Image</b></p>
-            <img src="{{asset('storage/avatars/'.$user->avatar)}}" alt="" class="">
-            <div class="mt-5"></div>
-            <div class="ms-auto mt-auto">
-                @if($user->subscribedTo())
-                    @include('includes.unsubscribeButton')
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-5 mb-2">
+            <div class="card p-5">
+                <p class="text-info fs-1 text-center"><b>Image</b></p>
 
-                    @if($user->notificationEnabled())
-                        @include('includes.enabledNotify')
+                    <img src="{{asset('storage/avatars/'.$user->avatar)}}" alt="" class="img-fluid" style="max-width: 375px">
+
+                <div class="mt-5"></div>
+                <div class="ms-auto mt-auto">
+                    @if($user->subscribedTo())
+                        @include('includes.unsubscribeButton')
+
+                        @if($user->notificationEnabled())
+                            @include('includes.enabledNotify')
+                        @else
+                            @include('includes.disabledNotify')
+                        @endif
                     @else
-                        @include('includes.disabledNotify')
+                        @include('includes.subscribeButton')
                     @endif
-                @else
-                    @include('includes.subscribeButton')
-                @endif
-            </div>
+                </div>
             </div>
 
         </div>
-        <div class="col-md-6 fs-3 ms-1">
+        <div class="col-md-5 fs-3 ">
             <div class="card p-5 pb-0">
                 <p class="text-info fs-1 text-center"><b>Information</b></p>
                 <div class="d-flex justify-content-between">
