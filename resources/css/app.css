@@ -22,3 +22,9 @@ body {
 .logotype:hover{
     transform: rotate(360deg);
 }
+
+@media (max-width: 770.98px) {
+    #post-container {
+        width: 100% !important;
+    }
+}

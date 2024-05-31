@@ -59,7 +59,9 @@
         </div>
     </div>
 
-    <div class="w-75 mx-auto">
+
+
+    <div class="w-75 mx-auto" id="post-container">
         <div class="d-flex justify-content-center">
             {{$posts->onEachSide(0)->links()}}
         </div>

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('default')
     <p class="h1 text-center mb-5 text-info mt-5"> Post </p>
-    <div class="w-75 m-auto">
+    <div class="w-75 m-auto" id="post-container">
 
         @include('includes.postCard')
 
