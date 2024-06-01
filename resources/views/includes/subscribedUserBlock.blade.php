@@ -1,7 +1,7 @@
 <div class="bg-dark-subtle p-3 rounded-4 my-2 comment-main">
-    <div class="d-flex justify-content-between">
+    <div style="white-space: nowrap" class="d-flex justify-content-between">
 
-        <div>
+        <div class="d-flex align-items-center" style="max-width: 40%;">
         <img src="{{asset('storage/avatars/'.$user->avatar)}}" role="button" data-bs-toggle="modal"
              data-bs-target="{{'#post'.$user->id}}" alt="" width="40" height="40"
              class="rounded-circle me-2">
@@ -12,9 +12,9 @@
                 </div>
             </div>
         </div>
-        <a class="m-0 text-white text-break my-auto me-2 comment-author" href="{{route('show.profile',$user)}}"
-           style="text-decoration: none">{{$user->name}}</a>
-
+            <a class="truncate text-white text-break my-auto me-2 comment-author" href="{{route('show.profile',$user)}}">
+                {{$user->name}}
+            </a>
         </div>
         <div class="my-auto me-2">
             @include('includes.unsubscribeButton')
