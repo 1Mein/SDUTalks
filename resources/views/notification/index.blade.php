@@ -5,7 +5,7 @@
 @section('default')
 
     <p class="h1 text-center mb-5 text-info mt-5">Notifications</p>
-    <div class="w-75 mx-auto text-white">
+    <div class="w-75 mx-auto text-white" id="post-container">
         @foreach($notifies as $notify)
             @include('includes.notificationBlock')
         @endforeach

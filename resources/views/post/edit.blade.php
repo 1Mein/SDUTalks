@@ -4,7 +4,7 @@
 {{--@endsection--}}
 @section('default')
     <p class="h1 text-center mb-5 mt-5 text-info"> Edit your post </p>
-    <form action="{{route('posts.update',$post->id)}}" method="post" class="w-50 m-auto text-white"
+    <form action="{{route('posts.update',$post->id)}}" method="post" class="w-50 m-auto text-white" id="post-container"
           enctype="multipart/form-data">
         @csrf
         @method('patch')

@@ -15,7 +15,7 @@
                 <div class="mb-3">
                     <label for="comment" class="form-label fs-5 d-flex justify-content-between text-white">Comment this
                         post! ^-^
-                        <p class="text-muted p-0 m-0">Max 80.000 characters</p>
+                        <p class="text-muted p-0 m-0 text-end my-auto" style="font-size: small">Max 80.000 characters</p>
                     </label>
                     <div class="reply-wrapper">
                     </div>
