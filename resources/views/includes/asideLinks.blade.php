@@ -9,7 +9,7 @@
     </a>
 </li>
 <li>
-    <a href="#" class="nav-link p-2 text-white">
+    <a href="{{route('index.profile.search')}}" class="nav-link p-2 text-white @yield('search.index')">
         Search user
     </a>
 </li>

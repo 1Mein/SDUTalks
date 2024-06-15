@@ -79,12 +79,12 @@
         </div>
         <div class="my-auto d-flex">
             <div>
+                {{$notify->time}}
+            </div>
+            <div>
                 <a class="delete-notification text-white me-2 cursor-pointer" data-notification-id="{{$notify->id}}">
                     <i class="bi bi-trash fs-5"></i>
                 </a>
-            </div>
-            <div>
-                {{$notify->time}}
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 @section('main')
     <body>
+
     <main class="row m-0">
         <div class="col-md-2 text-bg-dark p-4 d-none d-md-block">
             <a href="{{route('posts.index')}}" class="d-block text-center mb-3 text-decoration-none logotype">

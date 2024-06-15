@@ -62,6 +62,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Comment', 'prefix' => '/comme
 Route::group(['namespace' => 'App\Http\Controllers\Profile', 'prefix' => '/profile', 'middleware' => ['auth']],function () {
     Route::get('/posts', 'PostsController')->name('posts.profile');
     Route::get('', 'IndexController')->name('index.profile');
+    Route::get('/search', 'SearchController@index')->name('index.profile.search');
+    Route::post('/search', 'SearchController@search')->name('index.profile.find');
     Route::post('/update', 'UpdateController')->name('update.profile');
     Route::get('/{user}','ShowController')->name('show.profile');
 });

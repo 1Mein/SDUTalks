@@ -5,7 +5,7 @@
 @endphp
 
 
-<div class="d-block @if($post->bestComment) mt-3 @else my-3 @endif card shadow-sm p-0">
+<div class="d-block @if($post->bestComment) mt-3 @else my-3 @endif card shadow-sm p-0 ">
     <div class="card-header d-flex justify-content-between ps-2">
         <div>
             <img src="{{asset('storage/avatars/'.$post->user->avatar)}}" role="button" data-bs-toggle="modal"
