@@ -40,7 +40,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Post', 'prefix' => 'posts'], 
     Route::post('/{post}/dislike',[LikeController::class,'dislike'])->middleware('auth')->name('posts.dislike');
     Route::get('', 'IndexController')->name('posts.index');
     Route::get('/subscribed', 'SubscribedController')->middleware('auth')->name('posts.subscribed');
-    Route::get('/create', 'CreateController')->name('posts.create');
+    Route::get('/create', 'CreateController')->middleware('auth')->name('posts.create');
     Route::post('', 'StoreController')->middleware('auth')->name('posts.store');
     Route::get('/{post}', 'ShowController')->name('posts.show');
     Route::get('/{post}/edit','EditController')->middleware(['auth','post.owner'])->name('posts.edit');

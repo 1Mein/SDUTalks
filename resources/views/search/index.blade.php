@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('index.profile')
+@section('search.index')
     active
 @endsection
 @section('default')
