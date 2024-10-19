@@ -3,6 +3,15 @@
         Home
     </a>
 </li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle p-2 text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item nav-link p-2 text-white @yield('services.teacher.index') " href="{{route('services.teacher.index')}}">Teacher's schedule</a>
+        <a class="dropdown-item nav-link p-2 text-white" href="#">secret</a>
+{{--        <div class="dropdown-divider"></div>--}}
+{{--        <a class="dropdown-item" href="#">Separated link</a>--}}
+    </div>
+</li>
 <li>
     <a href="{{route('posts.create')}}" class="nav-link p-2 text-white @yield('posts.create')">
         Create post

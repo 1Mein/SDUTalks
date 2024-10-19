@@ -84,3 +84,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Subscribe', 'prefix' => '/sub
     Route::post('/{user}', 'StoreController')->name('store.subscribe');
     Route::post('/{user}/notify','NotifyToggleController')->middleware('subscribed')->name('notify.toggle.subscribe');
 });
+
+Route::group(['namespace' => 'App\Http\Controllers\Services', 'prefix' => '/services'],function () {
+    Route::get('/teachers', 'Teacher\IndexController')->name('services.teacher.index');
+    Route::get('/teachers/{instructor}', 'Teacher\ShowController')->name('services.teacher.show');
+    Route::post('/teachers/search', 'Teacher\SearchController')->name('services.teacher.search');
+
+});
