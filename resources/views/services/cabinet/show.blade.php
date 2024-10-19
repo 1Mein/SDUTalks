@@ -1,47 +1,10 @@
 @extends('layouts.main')
 @section('default')
-    <p class="h1 text-center mb-5 text-info mt-5"> Teacher </p>
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-5 mb-2">
-            <div class="card p-5">
-                <p class="text-info fs-1 text-center"><b>Image</b></p>
-
-                <img src="{{asset('storage/avatars/'.$teacher->image)}}" alt="" class="img-fluid"
-                     style="max-width: 375px">
-
-                <div class="mt-5"></div>
-
-            </div>
-
-        </div>
-        <div class="col-md-5 fs-3 ">
-            <div class="card p-5 pb-0">
-                <p class="text-info fs-1 text-center"><b>Information</b></p>
-                <div class="d-flex justify-content-between">
-                    <p>Name:</p>
-                    <div>
-
-                        <p class="text-break">{{$teacher->name}}</p>
-                        <p class="text-break">{{$teacher->name_kz}}</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <p>Lessons:</p>
-                    <p class="text-break">{{count($lessons)}}</p>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <p>Degree:</p>
-                    <p class="text-break">{{$teacher->degree??'None'}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="">
-        <p class="h1 text-center mb-2 text-info mt-5"> Schedule </p>
 
+        <p class="h1 text-center mb-1 text-info mt-5"> Schedule </p>
+        <p class="h3 text-center mb-2 text-white mt-1"> Room: {{$cabinet}} </p>
     <table class="table table-bordered mx-auto border-white border-opacity-50">
         <thead>
         <tr>
@@ -83,13 +46,10 @@
                                     {{ $lesson['course_code'] }}<br>
                                     </span>
                                     {{ $lesson['name'] }}<br>
+                                    <a href="{{route('services.teacher.show', $lesson->instructor)}}" class="text-white">{{ $lesson->instructor->name }}</a><br>
                                     <span class="gr-type">
                                         {{$lesson['group']}}-{{$lesson['type']}}<br>
                                     </span>
-                                    <a href="{{route('services.cabinet.show', preg_replace('/\s*\(.*?\)\s*/', '', $lesson->cabinet))}}"
-                                    class="text-white">
-                                    {{ $lesson['cabinet'] }}
-                                    </a>
                                 </div>
                                 <hr class="m-1">
                             @endif

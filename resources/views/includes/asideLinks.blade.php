@@ -4,9 +4,10 @@
     </a>
 </li>
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle p-2 text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
-    <div class="dropdown-menu">
+    <a class="nav-link dropdown-toggle p-2 text-white @yield('services')"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+    <div class="dropdown-menu p-2">
         <a class="dropdown-item nav-link p-2 text-white @yield('services.teacher.index') " href="{{route('services.teacher.index')}}">Teacher's schedule</a>
+        <a class="dropdown-item nav-link p-2 text-white @yield('services.cabinet.index') " href="{{route('services.cabinet.index')}}">Cabinet's schedule</a>
         <a class="dropdown-item nav-link p-2 text-white" href="#">secret</a>
 {{--        <div class="dropdown-divider"></div>--}}
 {{--        <a class="dropdown-item" href="#">Separated link</a>--}}
@@ -88,3 +89,16 @@
         </div>
     @endif
 </div>
+
+
+<style>
+    .nav-pills .show>.nav-link {
+        color: var(--bs-nav-pills-link-active-color);
+        background-color: transparent;
+    }
+
+    .nav-pills .nav-link.active {
+        color: var(--bs-nav-pills-link-active-color);
+        background-color: var(--bs-nav-pills-link-active-bg);
+    }
+</style>

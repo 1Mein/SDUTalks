@@ -90,4 +90,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Services', 'prefix' => '/serv
     Route::get('/teachers/{instructor}', 'Teacher\ShowController')->name('services.teacher.show');
     Route::post('/teachers/search', 'Teacher\SearchController')->name('services.teacher.search');
 
+    Route::get('/cabinets', 'Cabinet\IndexController')->name('services.cabinet.index');
+    Route::get('/cabinets/{cabinet}', 'Cabinet\ShowController')->name('services.cabinet.show');
+    Route::post('/cabinets/search', 'Cabinet\SearchController')->name('services.cabinet.search');
 });

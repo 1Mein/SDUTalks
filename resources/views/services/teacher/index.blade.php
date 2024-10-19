@@ -1,4 +1,7 @@
 @extends('layouts.main')
+@section('services')
+    active
+@endsection
 @section('services.teacher.index')
     active
 @endsection
