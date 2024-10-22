@@ -25,7 +25,6 @@ class SearchController
             $currentDay = $selectedDay;
             $cabinets = DB::table('lessons')
                 ->select('cabinet', 'time', 'day')
-                ->where('cabinet', 'LIKE', '%' . $query . '%')
                 ->where('day', $currentDay)
                 ->get();
 
@@ -41,6 +40,7 @@ class SearchController
 
             $allCabinets = DB::table('lessons')
                 ->select('cabinet')
+                ->where('cabinet', 'LIKE', '%' . $query . '%')
                 ->distinct()
                 ->get();
 

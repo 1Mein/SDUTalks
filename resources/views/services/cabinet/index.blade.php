@@ -30,7 +30,7 @@
                         $currentDay = Carbon::now('GMT+5')->format('l');
                         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                     @endphp
-                    <option value="{{ $currentDay}}" id="currentDay" selected>Today ({{ $currentDay}})</option>
+                    <option value="{{ $currentDay}}" id="currentDay" selected>Today({{ $currentDay}})</option>
 
 
                     @foreach($daysOfWeek as $dayOfWeek)
