@@ -2,7 +2,6 @@
 @section('default')
 
     <div class="">
-
         <p class="h1 text-center mb-1 text-info mt-5"> Schedule </p>
         <p class="h3 text-center mb-2 text-white mt-1"> Room: {{$cabinet}} </p>
     <table class="table table-bordered mx-auto border-white border-opacity-50">

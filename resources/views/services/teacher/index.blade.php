@@ -10,7 +10,7 @@
 
     <div class="w-50 m-auto" id="post-container">
         <label for="searchBar">Search teacher</label>
-        <input id="searchBar" type="text" class="form-control" placeholder="name">
+        <input id="searchBar" type="text" class="form-control" placeholder="teacher name(kz or en)">
     </div>
 
     <div class="mx-auto my-5 w-75" id="post-container">

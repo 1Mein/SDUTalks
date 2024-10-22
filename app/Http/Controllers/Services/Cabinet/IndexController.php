@@ -14,7 +14,6 @@ class IndexController
             ->orderBy('cabinet')
             ->get();
 
-//        dd($cabinets);
         return view('services.cabinet.index', compact(['cabinets']));
     }
 }
