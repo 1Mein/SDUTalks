@@ -14,8 +14,10 @@ class Post extends Model
 //    use SoftDeletes;
 
     protected $table = 'posts';
+
     protected $guarded = false;
 
+    protected $appends = ['is_saved'];
 
     //user
     public function user(){
@@ -82,6 +84,20 @@ class Post extends Model
         return UserNotify::whereIn('notify_id', $notifiesIds)->get();
     }
 
+    public function savedBy()
+    {
+        return $this->belongsToMany(User::class, Saves::class, 'post_id', 'user_id');
+    }
+
+    public function getIsSavedAttribute()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return false;
+        }
+
+        return $this->savedBy()->where('user_id', $user->id)->exists();
+    }
 
     protected static function booted()
     {

@@ -85,6 +85,11 @@ class User extends Authenticatable
         return $this->hasMany(Subscribes::class,'to_user_id');
     }
 
+    public function saves()
+    {
+        return $this->belongsToMany(Post::class, Saves::class, 'user_id', 'post_id');
+    }
+
     public function subscribesUsers(){
         $subscribes = $this->subscribes()->pluck('to_user_id')->toArray();
         $users = User::whereIn('id', $subscribes)->get();

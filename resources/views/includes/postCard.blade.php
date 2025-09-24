@@ -23,54 +23,103 @@
                href="{{route('show.profile',$post->user)}}"
                style="text-decoration: none">{{$post->user->name}}</a>
         </div>
+{{--        @auth()--}}
+{{--            --}}{{--manage start--}}
+{{--            @if($post->user_id === auth()->user()->id || 1 === auth()->user()->id)--}}
+{{--                <div class="d-flex justify-content-center">--}}
+{{--                    <a href="{{route('posts.edit',$post->id)}}" class="my-auto text-warning ">--}}
+{{--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"--}}
+{{--                             class="bi bi-pencil-square"--}}
+{{--                             viewBox="0 0 16 16">--}}
+{{--                            <path--}}
+{{--                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>--}}
+{{--                            <path fill-rule="evenodd"--}}
+{{--                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>--}}
+{{--                        </svg>--}}
+{{--                    </a>--}}
+{{--                    <form action="{{route('posts.destroy',$post)}}" method="post" class="m-0 p-0 d-flex">--}}
+{{--                        @csrf--}}
+{{--                        @method('delete')--}}
+{{--                        <button type="submit" class="btn p-1 ms-1 my-auto text-danger">--}}
+{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"--}}
+{{--                                 class="bi bi-trash" viewBox="0 0 16 16">--}}
+{{--                                <path--}}
+{{--                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>--}}
+{{--                                <path--}}
+{{--                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>--}}
+{{--                            </svg>--}}
+{{--                        </button>--}}
+{{--                    </form>--}}
+{{--                    <div class="d-flex align-items-center pt-1">--}}
+{{--                        <div class="toggle-post tgp-{{$post->id}}" data-post-id="{{ $post->id }}">--}}
+{{--                            @if($post->is_published)--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#5cb85c"--}}
+{{--                                     class="bi bi-toggle-on" viewBox="0 0 16 16">--}}
+{{--                                    <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>--}}
+{{--                                </svg>--}}
+{{--                            @else--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d9534f"--}}
+{{--                                     class="bi bi-toggle-off" viewBox="0 0 16 16">--}}
+{{--                                    <path--}}
+{{--                                        d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>--}}
+{{--                                </svg>--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+{{--            --}}{{--manage end--}}
+{{--        @endauth--}}
+        <div class="d-flex">
+        <p class="m-0 my-auto @auth() me-4 @endauth() ">{{$post->time}}</p>
         @auth()
-            {{--manage start--}}
-            @if($post->user_id === auth()->user()->id || 1 === auth()->user()->id)
-                <div class="d-flex justify-content-center">
-                    <a href="{{route('posts.edit',$post->id)}}" class="my-auto text-warning ">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-pencil-square"
-                             viewBox="0 0 16 16">
-                            <path
-                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd"
-                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                        </svg>
-                    </a>
-                    <form action="{{route('posts.destroy',$post)}}" method="post" class="m-0 p-0 d-flex">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn p-1 ms-1 my-auto text-danger">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                            </svg>
-                        </button>
-                    </form>
-                    <div class="d-flex align-items-center pt-1">
-                        <div class="toggle-post tgp-{{$post->id}}" data-post-id="{{ $post->id }}">
-                            @if($post->is_published)
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#5cb85c"
-                                     class="bi bi-toggle-on" viewBox="0 0 16 16">
-                                    <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
-                                </svg>
+            <div class="dropdown my-auto">
+                <button class="btn btn-link text-white p-0 m-0" type="button" id="dropdownMenuButton{{$post->id}}"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                         class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                        <path
+                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{$post->id}}">
+
+                    <li>
+                        <button type="button" class="dropdown-item toggle-saves tgs-{{$post->id}}"
+                                data-post-id="{{ $post->id }}">
+                            @if($post->is_saved)
+                                Unsave
                             @else
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d9534f"
-                                     class="bi bi-toggle-off" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
-                                </svg>
+                                Save
                             @endif
-                        </div>
-                    </div>
-                </div>
-            @endif
-            {{--manage end--}}
+                        </button>
+                    </li>
+                    @if($post->user_id === auth()->user()->id || 1 === auth()->user()->id)
+                        <li>
+                            <a class="dropdown-item" href="{{route('posts.edit',$post->id)}}">Edit</a>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item toggle-post tgp-{{$post->id}}"
+                                    data-post-id="{{ $post->id }}">
+                                @if($post->is_published)
+                                    Make private
+                                @else
+                                    Make public
+                                @endif
+                            </button>
+                        </li>
+                        <li>
+                            <form action="{{route('posts.destroy',$post)}}" method="post" class="m-0">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="dropdown-item text-danger">Delete</button>
+                            </form>
+                        </li>
+                    @endauth
+                </ul>
+            </div>
         @endauth
-        <p class="m-0 my-auto">{{$post->time}}</p>
+        </div>
     </div>
     {{--    <a href="{{route('posts.show',$post->id)}}" class="text-white" style="text-decoration:none">--}}
     <div class="card-body text-white"> {{--text-center--}}
@@ -94,7 +143,7 @@
 
                 </div>
             @elseif (in_array($extension, ['mp4', 'avi', 'mov', 'wmv']))
-                <video class="mx-auto d-block img-fluid"  width="640" height="360" controls>
+                <video class="mx-auto d-block img-fluid" width="640" height="360" controls>
                     <source src="{{asset('storage/images/'.$post->image)}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>

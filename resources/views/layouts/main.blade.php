@@ -205,9 +205,34 @@
                         togglePost.innerHTML = '';
 
                         if (response.is_published) {
-                            togglePost.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#5cb85c" class="bi bi-toggle-on" viewBox="0 0 16 16"><path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/></svg>';
+                            togglePost.innerHTML = 'Make private';
                         } else {
-                            togglePost.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#d9534f" class="bi bi-toggle-off" viewBox="0 0 16 16"><path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/></svg>';
+                            togglePost.innerHTML = 'Make public';
+                        }
+                    }
+                }
+            })
+        });
+
+        $('.toggle-saves').on('click', function () {
+            var postId = $(this).data('post-id');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: 'POST',
+                url: '/saves/' + postId + '/toggle',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function (response) {
+                    console.log(response)
+                    if (response.success) {
+                        var togglePost = document.querySelector('.tgs-' + postId);
+                        togglePost.innerHTML = '';
+
+                        if (response.is_saved) {
+                            togglePost.innerHTML = 'Unsave';
+                        } else {
+                            togglePost.innerHTML = 'Save';
                         }
                     }
                 }
@@ -288,7 +313,6 @@
                 }
             });
         });
-
 
         $('.reply-comment').on('click', function () {
             let commentId = $(this).data('comment-id');

@@ -26,6 +26,11 @@
 @auth
     <hr>
     <li>
+        <a href="{{route('index.saves')}}" class="nav-link p-2 text-white @yield('index.saves') d-flex justify-content-between">
+            Saves
+        </a>
+    </li>
+    <li>
         <a href="{{route('index.subscribe')}}" class="nav-link p-2 text-white @yield('index.subscribe') d-flex justify-content-between">
             Subscribes
         </a>

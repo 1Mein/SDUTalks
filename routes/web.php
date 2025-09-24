@@ -85,6 +85,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Subscribe', 'prefix' => '/sub
     Route::post('/{user}/notify','NotifyToggleController')->middleware('subscribed')->name('notify.toggle.subscribe');
 });
 
+Route::group(['namespace' => 'App\Http\Controllers\Saves', 'prefix' => '/saves', 'middleware' => ['auth']],function () {
+    Route::get('', 'IndexController')->name('index.saves');
+    Route::delete('/{post}', 'DestroyController')->name('destroy.saves');
+    Route::post('/{post}', 'StoreController')->name('store.saves');
+    Route::post('/{post}/toggle','ToggleController')->name('toggle.saves');
+});
+
 Route::group(['namespace' => 'App\Http\Controllers\Services', 'prefix' => '/services'],function () {
     Route::get('/teachers', 'Teacher\IndexController')->name('services.teacher.index');
     Route::get('/teachers/{instructor}', 'Teacher\ShowController')->name('services.teacher.show');
